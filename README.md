@@ -1,6 +1,1 @@
-\frac{7x+5}{1+y^2}
-
-
-
-
-
+![](http://chart.googleapis.com/chart?cht=tx&chl= \frac{7x+5}{1+y^2})
