@@ -46,5 +46,8 @@ Since Pythagoras, we know that :math:`a^2 + b^2 = c^2`.
 .. math:: e^{i\pi} + 1 = 0
    :label: euler
 
+.. math::
+    \int_a^{b}f=\left[f(a+\dfrac{dx}{2})+f(a+dx+\dfrac{dx}{2})+(f(a+2dx+\dfrac{dx}{2})+\cdots \right]dx
+
 Euler's identity, equation :eq:`euler`, was elected one of the most
 beautiful mathematical formulas.
