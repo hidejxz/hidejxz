@@ -1,1 +1,1 @@
-The area of a circle is :math:`A_\text{c} = (\pi/4) d^2`.
+Since Pythagoras, we know that :math:`a^2 + b^2 = c^2`.
