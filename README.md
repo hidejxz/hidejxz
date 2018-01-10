@@ -1,1 +1,1 @@
-![](http://chart.googleapis.com/chart?cht=tx&chl= \frac{7x+5}{1+y^2})
+<img src="https://latex.codecogs.com/gif.latex?ax^{2}&space;&plus;&space;by^{2}&space;&plus;&space;c&space;=&space;0" title="ax^{2} + by^{2} + c = 0" />
