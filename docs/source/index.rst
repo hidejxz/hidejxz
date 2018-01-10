@@ -18,3 +18,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+The area of a circle is :math:`A_\text{c} = (\pi/4) d^2`.
