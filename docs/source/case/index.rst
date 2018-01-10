@@ -4,5 +4,7 @@
 .. toctree::
    :maxdepth: 2
    
-   chapter2
+   titanic
+   house_prices
+   digit_recognizer
 

@@ -1,8 +1,9 @@
-其他!
+其他
 ========================================
 
 .. toctree::
    :maxdepth: 2
    
-   chapter3
+   advice
+   data_warehouse
 
