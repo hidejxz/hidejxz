@@ -36,9 +36,9 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
-        <link rel="up" title="常用算法" href="index.html"/>
-        <link rel="next" title="k近邻(knn)" href="knn.html"/>
-        <link rel="prev" title="常用算法" href="index.html"/> 
+        <link rel="up" title="理论部分" href="index.html"/>
+        <link rel="next" title="决策树" href="decision_trees.html"/>
+        <link rel="prev" title="理论部分" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -92,11 +92,17 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">常用算法</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">线性回归与逻辑回归</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">理论部分</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">线性回归与逻辑回归</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">线性回归</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">逻辑回归</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">正则化</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
 <li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
@@ -150,7 +156,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">常用算法</a> &raquo;</li>
+          <li><a href="index.html">理论部分</a> &raquo;</li>
         
       <li>线性回归与逻辑回归</li>
     
@@ -173,6 +179,88 @@
             
   <div class="section" id="id1">
 <h1>线性回归与逻辑回归<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>线性回归<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>一般式:</li>
+</ul>
+<div class="math">
+\[h_\theta(x)=\theta^Tx=\theta_0+\theta_1x_1+\theta_2x_2+\cdots+\theta_nx_n\]</div>
+<ul class="simple">
+<li>损失函数(L2正则):</li>
+</ul>
+<div class="math">
+\[J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\lambda\sum_{j=1}^n\theta_j^2\right]\]</div>
+<ul class="simple">
+<li>目标: 最小化损失函数，即:</li>
+</ul>
+<div class="math">
+\[\min\ J(\theta)\]</div>
+<ul class="simple">
+<li>梯度下降一般式:</li>
+</ul>
+<div class="math">
+\[\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\]</div>
+<ul class="simple">
+<li>线性回归的梯度下降:</li>
+</ul>
+<div class="math">
+\[\begin{split}\begin{align}
+\theta_j &amp; := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
+&amp; := \theta_j(1-\alpha\frac{\lambda}{m})-\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}
+\end{align}\end{split}\]</div>
+</div>
+<div class="section" id="id3">
+<h2>逻辑回归<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>一般式:</li>
+</ul>
+<div class="math">
+\[h_\theta(x)=g(\theta^Tx)\]</div>
+<ul class="simple">
+<li>Sigmoid Function</li>
+</ul>
+<div class="math">
+\[g(z)=\frac{1}{1+e^{-z}}\]</div>
+<a class="reference internal image-reference" href="../_images/lr_sigmoid.png"><img alt="../_images/lr_sigmoid.png" class="align-center" src="../_images/lr_sigmoid.png" style="width: 200px;" /></a>
+<ul class="simple">
+<li>损失函数(L2正则):</li>
+</ul>
+<div class="math">
+\[\begin{split}\begin{align}
+Cost(h_\theta(x),y) &amp; =
+\begin{cases}
+-\log(h_\theta(x)) &amp; \mbox{if }y=1 \\
+-\log(1-h_\theta(x)) &amp; \mbox{if }y=0
+\end{cases}\\
+&amp; = -y\log(h_\theta(x))-(1-y)\log(1-h_\theta(x))
+\end{align}\end{split}\]</div>
+<div class="math">
+\[\begin{split}\begin{align}
+J(\theta) &amp; = \frac{1}{m}\sum_{i=1}^mCost(h_\theta(x^{(i)}),y^{(i)})+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
+&amp; = -\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\log(h_\theta(x^{(i)}))+(1-y^{(i)})\log(1-h_\theta(x^{(i)}))\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2
+\end{align}\end{split}\]</div>
+<ul class="simple">
+<li>逻辑回归的梯度下降(正好形式与线性回归一致，区别在于 <span class="math">\(h_\theta(x)\)</span> 不同):</li>
+</ul>
+<div class="math">
+\[\begin{split}\begin{align}
+\theta_j &amp; := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
+&amp; := \theta_j(1-\alpha\frac{\lambda}{m})-\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}
+\end{align}\end{split}\]</div>
+</div>
+<div class="section" id="id4">
+<h2>正则化<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>正则化的目的是防止模型过拟合。常见的正则项有:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+Lasso(L1正则化) &amp; : \lambda\sum_{j=1}^m\theta_j\\
+Ridge(L2正则化) &amp; : \lambda\sum_{j=1}^m\theta_j^2\\
+Elastic Net &amp; : \lambda\rho\sum_{j=1}^m\theta_j+\frac{\lambda(1-\rho)}{2}\sum_{j=1}^m\theta_j^2
+\end{align}\end{split}\]</div>
+<p>其中L1正则化还可以进行特征选择:</p>
+<a class="reference internal image-reference" href="../_images/lr_regularization.jpg"><img alt="../_images/lr_regularization.jpg" class="align-center" src="../_images/lr_regularization.jpg" style="width: 500px;" /></a>
+</div>
 </div>
 
 
@@ -185,10 +273,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="knn.html" class="btn btn-neutral float-right" title="k近邻(knn)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="decision_trees.html" class="btn btn-neutral float-right" title="决策树" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="常用算法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="理论部分" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
