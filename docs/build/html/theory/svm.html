@@ -97,7 +97,11 @@
 <li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
 <li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">支持向量机(svm)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">支持向量机(svm)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">线性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">非线性</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
@@ -174,6 +178,65 @@
             
   <div class="section" id="svm">
 <h1>支持向量机(svm)<a class="headerlink" href="#svm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>线性<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>SVM的线性分类问题得先从逻辑回归说起。</p>
+<a class="reference internal image-reference" href="../_images/svm_cf.png"><img alt="../_images/svm_cf.png" class="align-center" src="../_images/svm_cf.png" style="width: 800px;" /></a>
+<p>如上图所示，在y=1和y=0两种情况下，分别对损失函数做了更严格的调整，并对整个损失函数除以了 <span class="math">\(\frac{\lambda}{m}\)</span> ,即：</p>
+<div class="math">
+\[\begin{split}\begin{align}
+LR &amp;: \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
+SVM &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2
+\end{align}\end{split}\]</div>
+<p>为了最小化损失函数，得让函数的第一项无限逼近于0，而正则项最小化，即</p>
+<div class="math">
+\[\min_\theta\frac{1}{2}\sum_{j=1}^n\theta_j^2\]</div>
+<div class="math">
+\[\begin{split}\begin{cases}
+\theta^Tx \ge 1(not\ just \ge 0) &amp; \mbox{if }y=1 \\
+\theta^Tx \leq -1(not\ just \leq 0) &amp; \mbox{if }y=0
+\end{cases}\end{split}\]</div>
+<p>而</p>
+<div class="math">
+\[\theta^Tx^{(i)}=p^{(i)}\cdot\|\theta\|\]</div>
+<p>其中 <span class="math">\(p\)</span> 为 <span class="math">\(x\)</span> 向量在 <span class="math">\(\theta\)</span> 向量上的映射，同时也是 <span class="math">\(x\)</span> 到分界超平面的距离，如下图所示</p>
+<a class="reference internal image-reference" href="../_images/svm_db.png"><img alt="../_images/svm_db.png" class="align-center" src="../_images/svm_db.png" style="width: 800px;" /></a>
+<p>所以为了最小化目标函数，在 <span class="math">\(\theta\)</span> 尽可能取最小值的情况下，尽可能增大 <span class="math">\(p\)</span> 。SVM就是通过这样的方式来增大样本与决策边界的距离，同时最小化特征的权重参数。</p>
+</div>
+<div class="section" id="id2">
+<h2>非线性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>对于非线性的决策边界，一个简单的典型例子如下图,其中部分特征由高阶项组成:</p>
+<a class="reference internal image-reference" href="../_images/svm_non_lin.png"><img alt="../_images/svm_non_lin.png" class="align-center" src="../_images/svm_non_lin.png" style="width: 800px;" /></a>
+<p>我们的假设是将所有的样本都映射到另一个空间(高维空间，维度为训练样本的数量)，而在这个高维空间中样本线性可分。因此:</p>
+<div class="math">
+\[\begin{split}\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1x_2+\theta_4x_1^2+\theta_5x_2^2+\cdots\\
+=\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3+\theta_4f_4+\theta_5f_5+\cdots+\theta_mf_m\end{split}\]</div>
+<p>其中 <span class="math">\(f\)</span> 是 <span class="math">\(x\)</span> 到另一个高维空间的映射函数，也称为两者的相似函数，也是传说中的核函数！高斯核函数是一种常用的核函数:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\right)\\
+&amp; \approx
+\begin{cases}
+1 &amp; \mbox{if }x \approx l^{(i)} \\
+0 &amp; \mbox{if }x\ far\ from\ l^{(i)}
+\end{cases}
+\end{align}\end{split}\]</div>
+<p>其中 <span class="math">\(l^{(i)}\)</span> 即为 <span class="math">\(x^{(i)}\)</span></p>
+<p>所以总的svm求解步骤可以总结为如下图:</p>
+<a class="reference internal image-reference" href="../_images/svm_non_lin2.png"><img alt="../_images/svm_non_lin2.png" class="align-center" src="../_images/svm_non_lin2.png" style="width: 800px;" /></a>
+<p>目标函数:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+LR &amp;: \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
+SVM线性 &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2\\
+SVM非线性 &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)})+(1-y)^{(i)}cost_0(\theta^Tf^{(i)})\right]+\frac{1}{2}\sum_{i=1}^m\theta_i^2
+\end{align}\end{split}\]</div>
+<p>SVM参数:</p>
+<a class="reference internal image-reference" href="../_images/svm_parameters.png"><img alt="../_images/svm_parameters.png" class="align-center" src="../_images/svm_parameters.png" style="width: 800px;" /></a>
+<p>逻辑回归与SVM对比</p>
+<a class="reference internal image-reference" href="../_images/svm_lr_vs_svm.png"><img alt="../_images/svm_lr_vs_svm.png" class="align-center" src="../_images/svm_lr_vs_svm.png" style="width: 800px;" /></a>
+<p>使用SVM时，样本量要适中。太大会提升计算成本，太小则无法达到低维映射到高维的目的。</p>
+</div>
 </div>
 
 
