@@ -97,7 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">k近邻(knn)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
@@ -172,7 +172,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="k-knn">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="k-knn">
 <h1>k近邻(knn)<a class="headerlink" href="#k-knn" title="Permalink to this headline">¶</a></h1>
 </div>
 

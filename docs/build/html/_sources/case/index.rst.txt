@@ -4,7 +4,7 @@
 .. toctree::
    :maxdepth: 2
    
-   titanic
+   titanic.ipynb
    house_prices
    digit_recognizer
 

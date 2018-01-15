@@ -92,9 +92,17 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../theory/index.html">常用算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/index.html">理论部分</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">案例总结</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">泰坦尼克号幸存预测</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">泰坦尼克号幸存预测</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.-概述">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#2.-数据分析">2. 数据分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.-数据清洗及特征工程">3. 数据清洗及特征工程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#4.-建模及结果评估">4. 建模及结果评估</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#5.-预测">5. 预测</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.-总结">6. 总结</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="house_prices.html">房价预测</a></li>
 <li class="toctree-l2"><a class="reference internal" href="digit_recognizer.html">mnist手写数字识别</a></li>
 </ul>
@@ -152,7 +160,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/case/titanic.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/case/titanic.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -165,8 +173,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>泰坦尼克号幸存预测<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="泰坦尼克号幸存预测">
+<h1>泰坦尼克号幸存预测<a class="headerlink" href="#泰坦尼克号幸存预测" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><strong>目录</strong></div></blockquote>
+<ol class="arabic simple">
+<li><a class="reference external" href="#概述">概述</a></li>
+<li><a class="reference external" href="#数据分析">数据分析</a></li>
+<li><a class="reference external" href="#数据清洗及特征工程">数据清洗及特征工程</a></li>
+<li><a class="reference external" href="#建模及结果评估">建模及结果评估</a></li>
+<li><a class="reference external" href="#预测">预测</a></li>
+<li><a class="reference external" href="#总结">总结</a></li>
+</ol>
+<div class="section" id="1.-概述">
+<h2>1. 概述<a class="headerlink" href="#1.-概述" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="2.-数据分析">
+<h2>2. 数据分析<a class="headerlink" href="#2.-数据分析" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="3.-数据清洗及特征工程">
+<h2>3. 数据清洗及特征工程<a class="headerlink" href="#3.-数据清洗及特征工程" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="4.-建模及结果评估">
+<h2>4. 建模及结果评估<a class="headerlink" href="#4.-建模及结果评估" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="5.-预测">
+<h2>5. 预测<a class="headerlink" href="#5.-预测" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="6.-总结">
+<h2>6. 总结<a class="headerlink" href="#6.-总结" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
