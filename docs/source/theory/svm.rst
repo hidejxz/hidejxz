@@ -90,6 +90,7 @@ SVM参数:
     :align: center
 
 逻辑回归与SVM对比
+----------------------
 
 .. image:: ../images/svm_lr_vs_svm.png
     :width: 800px

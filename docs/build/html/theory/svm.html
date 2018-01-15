@@ -100,6 +100,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">支持向量机(svm)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">线性</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">非线性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">逻辑回归与SVM对比</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
@@ -207,7 +208,7 @@ SVM &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{
 <h2>非线性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>对于非线性的决策边界，一个简单的典型例子如下图,其中部分特征由高阶项组成:</p>
 <a class="reference internal image-reference" href="../_images/svm_non_lin.png"><img alt="../_images/svm_non_lin.png" class="align-center" src="../_images/svm_non_lin.png" style="width: 800px;" /></a>
-<p>我们的假设是将所有的样本都映射到另一个空间(高维空间，维度为训练样本的数量)，而在这个高维空间中样本线性可分。因此:</p>
+<p>我们的假设是将所有的样本都映射到另一个空间(高维空间，维度为训练样本的数量m)，而在这个高维空间中样本线性可分。因此:</p>
 <div class="math">
 \[\begin{split}\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1x_2+\theta_4x_1^2+\theta_5x_2^2+\cdots\\
 =\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3+\theta_4f_4+\theta_5f_5+\cdots+\theta_mf_m\end{split}\]</div>
@@ -233,7 +234,9 @@ SVM非线性 &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)}
 \end{align}\end{split}\]</div>
 <p>SVM参数:</p>
 <a class="reference internal image-reference" href="../_images/svm_parameters.png"><img alt="../_images/svm_parameters.png" class="align-center" src="../_images/svm_parameters.png" style="width: 800px;" /></a>
-<p>逻辑回归与SVM对比</p>
+</div>
+<div class="section" id="id3">
+<h2>逻辑回归与SVM对比<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <a class="reference internal image-reference" href="../_images/svm_lr_vs_svm.png"><img alt="../_images/svm_lr_vs_svm.png" class="align-center" src="../_images/svm_lr_vs_svm.png" style="width: 800px;" /></a>
 <p>使用SVM时，样本量要适中。太大会提升计算成本，太小则无法达到低维映射到高维的目的。</p>
 </div>
