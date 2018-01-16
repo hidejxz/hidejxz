@@ -208,6 +208,38 @@
 </style>
 <div class="section" id="id1">
 <h1>朴素贝叶斯<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>贝叶斯定理:</li>
+</ul>
+<div class="math">
+\[P(y|x_1,\cdots,x_n) = \frac{P(y)P(x_1,\cdots,x_n|y)}{P(x_1,\cdots,x_n)}\]</div>
+<ul class="simple">
+<li>条件独立性假设(“朴素”):</li>
+</ul>
+<div class="math">
+\[P(x_1,\cdots,x_n|y)=\prod_{i=1}^n P(x_i|y)\]</div>
+<ul class="simple">
+<li>朴素贝叶斯一般式:</li>
+</ul>
+<div class="math">
+\[P(y|x_1,\cdots,x_n) = \frac{P(y)\prod_{i=1}^n P(x_i|y)}{P(x_1,\cdots,x_n)}\]</div>
+<p>由上式可得</p>
+<div class="math">
+\[P(y|x_1,\cdots,x_n) \propto P(y)\prod_{i=1}^n P(x_i|y)\]</div>
+<p>因此朴素贝叶斯法即求</p>
+<div class="math">
+\[\arg \max_yP(y)\prod_{i=1}^n P(x_i|y)\]</div>
+<ul class="simple">
+<li>连续特征属性使用高斯模型</li>
+</ul>
+<div class="math">
+\[P(x_i|y)=\frac{1}{\sqrt{2\pi\sigma_y^2}}\exp\left(-\frac{(x_i-\mu_y)^2}{2\sigma_y^2}\right)\]</div>
+<ul class="simple">
+<li>离散特征属性使用多项式模型</li>
+</ul>
+<div class="math">
+\[P(x_i|y)=\frac{N_{yi}+\alpha}{N_y+\alpha n}\]</div>
+<p>其中 <span class="math">\(N_y\)</span> 为 <span class="math">\(y\)</span> 等于特定值的个数; <span class="math">\(N_{yi}\)</span> 为 <span class="math">\(y\)</span> 等于特定值条件下，<span class="math">\(x\)</span> 等于某值的数量; <span class="math">\(n\)</span> 为该特征值的种类数。为防止未出现过的特征值对计算概率造成影响，在计算特征值概率时，引入了 <span class="math">\(\alpha\)</span> 因子，当 <span class="math">\(\alpha=1\)</span> 时，称为拉普拉斯平滑。</p>
 </div>
 
 
