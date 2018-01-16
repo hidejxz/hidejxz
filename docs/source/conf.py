@@ -137,9 +137,9 @@ latex_elements = {
     #
     # 'figure_align': 'htbp',
     #'papersize':'a4paper',# The font size ('10pt', '11pt' or '12pt').
-    #'pointsize':'12pt','classoptions':',oneside','babel':'',#必須
-    #'inputenc':'',#必須
-    #'utf8extra':'',#必須
+    'pointsize':'12pt','classoptions':',oneside','babel':'',#必須
+    'inputenc':'',#必須
+    'utf8extra':'',#必須
     ## Additional stuff for the LaTeX preamble.
     #'preamble': r"""
     #\usepackage{xeCJK}
