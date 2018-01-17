@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Titanic幸存预测 &mdash; hidejxz-blog 1.0.0 documentation</title>
+  <title>Titanic存活预测 &mdash; hidejxz-blog 1.0.0 documentation</title>
   
 
   
@@ -94,13 +94,23 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../theory/index.html">理论部分</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">案例总结</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Titanic幸存预测</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Titanic存活预测</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#1.-概述">1. 概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#2.-数据分析">2. 数据分析</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Missing-Data">Missing Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pclass">Pclass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Sex">Sex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Embarked">Embarked</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Age">Age</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Fare">Fare</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#3.-数据清洗">3. 数据清洗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.-数据清洗">3. 数据清洗</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Title">Title</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Cabin">Cabin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#FamilySize">FamilySize</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#4.-baseline建模及评估">4. baseline建模及评估</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#5.-误差分析">5. 误差分析</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#6.-进一步特征工程">6. 进一步特征工程</a></li>
@@ -159,7 +169,7 @@
         
           <li><a href="index.html">案例总结</a> &raquo;</li>
         
-      <li>Titanic幸存预测</li>
+      <li>Titanic存活预测</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -376,8 +386,8 @@ div.nboutput div.output_area.stderr {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
 </style>
-<div class="section" id="Titanic幸存预测">
-<h1>Titanic幸存预测<a class="headerlink" href="#Titanic幸存预测" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Titanic存活预测">
+<h1>Titanic存活预测<a class="headerlink" href="#Titanic存活预测" title="Permalink to this headline">¶</a></h1>
 <p><strong>目录</strong></p>
 <ol class="arabic simple">
 <li><a class="reference external" href="#概述">概述</a></li>
@@ -391,7 +401,7 @@ div.nboutput div.output_area.stderr {
 </ol>
 <div class="section" id="1.-概述">
 <h2>1. 概述<a class="headerlink" href="#1.-概述" title="Permalink to this headline">¶</a></h2>
-<p>Titanic幸存预测是Kaggle上的入门赛题。给定一些乘客的信息，及其最后是否幸存的label，作为训练样本,预测其他乘客是否幸存，是典型的二分类问题。</p>
+<p>Titanic存活预测是Kaggle上的入门赛题。给定一些乘客的信息，及其最后是否存活的label，作为训练样本,预测其他乘客是否存活，是典型的二分类问题。</p>
 </div>
 <div class="section" id="2.-数据分析">
 <h2>2. 数据分析<a class="headerlink" href="#2.-数据分析" title="Permalink to this headline">¶</a></h2>
@@ -414,12 +424,13 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<span></span>In [68]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">],</span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="s1">&#39;test&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -557,7 +568,7 @@ div.nboutput div.output_area.stderr {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">#训练集891条，测试集418条</span>
 </pre></div>
 </div>
 </div>
@@ -569,25 +580,45 @@ div.nboutput div.output_area.stderr {
 891 418
 </pre></div></div>
 </div>
-<div class="section" id="Missing-Data">
-<h3>Missing Data<a class="headerlink" href="#Missing-Data" title="Permalink to this headline">¶</a></h3>
-<p>年龄与舱位的数据缺失比较严重</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [46]:
+<span></span>In [64]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">total</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">dtypes</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span><span class="n">percent</span><span class="p">,</span><span class="n">Type</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="s1">&#39;Percent&#39;</span><span class="p">,</span><span class="s1">&#39;Type&#39;</span><span class="p">])</span>
+<span></span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1">#平均存活率38.4%</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[46]:
+<span></span>Out[64]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>0.3838383838383838
+</pre></div>
+</div>
+</div>
+<div class="section" id="Missing-Data">
+<h3>Missing Data<a class="headerlink" href="#Missing-Data" title="Permalink to this headline">¶</a></h3>
+<p>年龄与舱位的数据缺失比较严重</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [75]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">total</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span><span class="n">percent</span><span class="p">,</span><span class="n">Type</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span><span class="s1">&#39;Percent&#39;</span><span class="p">,</span><span class="s1">&#39;Type&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[75]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -617,26 +648,26 @@ div.nboutput div.output_area.stderr {
   <tbody>
     <tr>
       <th>Age</th>
-      <td>177</td>
-      <td>0.198653</td>
+      <td>263</td>
+      <td>0.200917</td>
       <td>float64</td>
     </tr>
     <tr>
       <th>Cabin</th>
-      <td>687</td>
-      <td>0.771044</td>
+      <td>1014</td>
+      <td>0.774637</td>
       <td>object</td>
     </tr>
     <tr>
       <th>Embarked</th>
       <td>2</td>
-      <td>0.002245</td>
+      <td>0.001528</td>
       <td>object</td>
     </tr>
     <tr>
       <th>Fare</th>
-      <td>0</td>
-      <td>0.000000</td>
+      <td>1</td>
+      <td>0.000764</td>
       <td>float64</td>
     </tr>
     <tr>
@@ -676,12 +707,6 @@ div.nboutput div.output_area.stderr {
       <td>int64</td>
     </tr>
     <tr>
-      <th>Survived</th>
-      <td>0</td>
-      <td>0.000000</td>
-      <td>int64</td>
-    </tr>
-    <tr>
       <th>Ticket</th>
       <td>0</td>
       <td>0.000000</td>
@@ -691,42 +716,29 @@ div.nboutput div.output_area.stderr {
 </table>
 </div></div>
 </div>
+</div>
+<div class="section" id="Pclass">
+<h3>Pclass<a class="headerlink" href="#Pclass" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>3等座人数最多，1等2等差不多</li>
+<li>等级越高，存活率越高</li>
+</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<span></span>In [129]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">,</span><span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[7]:
-</pre></div>
-</div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
-<span></span>0.3838383838383838
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [42]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[42]:
+<span></span>Out[129]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -748,28 +760,27 @@ div.nboutput div.output_area.stderr {
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>Pclass</th>
       <th>count</th>
       <th>Survived</th>
-    </tr>
-    <tr>
-      <th>Pclass</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>1</th>
+      <th>0</th>
+      <td>1</td>
       <td>216</td>
       <td>0.629630</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>1</th>
+      <td>2</td>
       <td>184</td>
       <td>0.472826</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>2</th>
+      <td>3</td>
       <td>491</td>
       <td>0.242363</td>
     </tr>
@@ -777,26 +788,26 @@ div.nboutput div.output_area.stderr {
 </table>
 </div></div>
 </div>
-<ul class="simple">
-<li>3等座人数最多，1等2等差不多</li>
-<li>等级越高，幸存率越高</li>
-</ul>
+</div>
+<div class="section" id="Sex">
+<h3>Sex<a class="headerlink" href="#Sex" title="Permalink to this headline">¶</a></h3>
+<p>女性生存几率大大高于男性</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [43]:
+<span></span>In [135]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Sex&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Sex&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Sex&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Sex&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">,</span><span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[43]:
+<span></span>Out[135]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -818,23 +829,21 @@ div.nboutput div.output_area.stderr {
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>Sex</th>
       <th>count</th>
       <th>Survived</th>
-    </tr>
-    <tr>
-      <th>Sex</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>female</th>
+      <th>0</th>
+      <td>female</td>
       <td>314</td>
       <td>0.742038</td>
     </tr>
     <tr>
-      <th>male</th>
+      <th>1</th>
+      <td>male</td>
       <td>577</td>
       <td>0.188908</td>
     </tr>
@@ -842,25 +851,26 @@ div.nboutput div.output_area.stderr {
 </table>
 </div></div>
 </div>
-<ul class="simple">
-<li>女性生存几率大大高于男性</li>
-</ul>
+</div>
+<div class="section" id="Embarked">
+<h3>Embarked<a class="headerlink" href="#Embarked" title="Permalink to this headline">¶</a></h3>
+<p>登船口以S居多，C的存活率较其他两个稍微高一点</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [44]:
+<span></span>In [136]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Embarked&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Embarked&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Embarked&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Embarked&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">,</span><span class="n">how</span> <span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[44]:
+<span></span>Out[136]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -882,28 +892,27 @@ div.nboutput div.output_area.stderr {
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>Embarked</th>
       <th>count</th>
       <th>Survived</th>
-    </tr>
-    <tr>
-      <th>Embarked</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>C</th>
+      <th>0</th>
+      <td>C</td>
       <td>168</td>
       <td>0.553571</td>
     </tr>
     <tr>
-      <th>Q</th>
+      <th>1</th>
+      <td>Q</td>
       <td>77</td>
       <td>0.389610</td>
     </tr>
     <tr>
-      <th>S</th>
+      <th>2</th>
+      <td>S</td>
       <td>644</td>
       <td>0.336957</td>
     </tr>
@@ -911,12 +920,13 @@ div.nboutput div.output_area.stderr {
 </table>
 </div></div>
 </div>
-<ul class="simple">
-<li>登船口以S居多，C的幸存率较其他两个稍微高一点</li>
-</ul>
+</div>
+<div class="section" id="Age">
+<h3>Age<a class="headerlink" href="#Age" title="Permalink to this headline">¶</a></h3>
+<p>从年龄上看，并没有太大的差别</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [63]:
+<span></span>In [77]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -931,16 +941,396 @@ div.nboutput div.output_area.stderr {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/case_titanic_18_0.png" src="../_images/case_titanic_18_0.png" />
+<img alt="../_images/case_titanic_19_0.png" src="../_images/case_titanic_19_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="Fare">
+<h3>Fare<a class="headerlink" href="#Fare" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>从年龄上看，并没有太大的差别</li>
+<li>票价的范围比较大，最大的超过了500</li>
+<li>幸存者票价会略高一些</li>
 </ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Survived&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Fare&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Fare&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]],</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_titanic_21_0.png" src="../_images/case_titanic_21_0.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="3.-数据清洗">
 <h2>3. 数据清洗<a class="headerlink" href="#3.-数据清洗" title="Permalink to this headline">¶</a></h2>
+<p>首先处理缺失数据。对于乘客的年龄，考虑到其年龄可能会与其称谓头衔有关，故先从Name字段中提炼出头衔，并对一些少数的特殊称谓汇总。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [80]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39; ([A-Za-z]+)\.&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">Title_Dictionary</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;Capt&quot;</span><span class="p">:</span>       <span class="s2">&quot;Officer&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Col&quot;</span><span class="p">:</span>        <span class="s2">&quot;Officer&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Major&quot;</span><span class="p">:</span>      <span class="s2">&quot;Officer&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Jonkheer&quot;</span><span class="p">:</span>   <span class="s2">&quot;Royalty&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Don&quot;</span><span class="p">:</span>        <span class="s2">&quot;Royalty&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Sir&quot;</span> <span class="p">:</span>       <span class="s2">&quot;Royalty&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Dr&quot;</span><span class="p">:</span>         <span class="s2">&quot;Officer&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Rev&quot;</span><span class="p">:</span>        <span class="s2">&quot;Officer&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Countess&quot;</span><span class="p">:</span>   <span class="s2">&quot;Royalty&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Dona&quot;</span><span class="p">:</span>       <span class="s2">&quot;Royalty&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Mme&quot;</span><span class="p">:</span>        <span class="s2">&quot;Mrs&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Mlle&quot;</span><span class="p">:</span>       <span class="s2">&quot;Miss&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Ms&quot;</span><span class="p">:</span>         <span class="s2">&quot;Mrs&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Mr&quot;</span> <span class="p">:</span>        <span class="s2">&quot;Mr&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Mrs&quot;</span> <span class="p">:</span>       <span class="s2">&quot;Mrs&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Miss&quot;</span> <span class="p">:</span>      <span class="s2">&quot;Miss&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Master&quot;</span> <span class="p">:</span>    <span class="s2">&quot;Master&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Lady&quot;</span> <span class="p">:</span>      <span class="s2">&quot;Royalty&quot;</span>
+                    <span class="p">}</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">Title</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">Title_Dictionary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Title">
+<h3>Title<a class="headerlink" href="#Title" title="Permalink to this headline">¶</a></h3>
+<p>Mrs和Miss的存活率还是蛮高的，Mr就比较悲剧，这跟性别有很大关系</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [137]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">survived</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">ix</span><span class="p">[:</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],[</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Title&#39;</span><span class="p">],</span> <span class="n">as_index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,[</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="s1">&#39;Survived&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Title&#39;</span><span class="p">],</span> <span class="n">as_index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="n">survived</span><span class="p">,</span><span class="n">how</span> <span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[137]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>count</th>
+      <th>Survived</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Master</td>
+      <td>40</td>
+      <td>0.575000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Miss</td>
+      <td>184</td>
+      <td>0.701087</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mr</td>
+      <td>517</td>
+      <td>0.156673</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mrs</td>
+      <td>127</td>
+      <td>0.795276</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Officer</td>
+      <td>18</td>
+      <td>0.277778</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Royalty</td>
+      <td>5</td>
+      <td>0.600000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<ul class="simple">
+<li>不同Title的平均年龄还是有较大区别的</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [83]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="s1">&#39;Age&#39;</span><span class="p">]],</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_titanic_28_0.png" src="../_images/case_titanic_28_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li>不同等级仓位的平均年龄也有一定区别</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [78]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Pclass&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Age&#39;</span><span class="p">]],</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_titanic_30_0.png" src="../_images/case_titanic_30_0.png" />
+</div>
+</div>
+<p>基于以上两个属性，对缺失的年龄进行分组填充</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [147]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">age_df</span><span class="o">=</span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Age&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span><span class="s1">&#39;Title&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">age_df</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">age_df</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">])</span>
+<span class="n">age_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Age&#39;</span><span class="p">:</span><span class="s1">&#39;Age_p&#39;</span><span class="p">},</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span> <span class="n">age_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">])</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Age_p&#39;</span><span class="p">],</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Age_p&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Cabin">
+<h3>Cabin<a class="headerlink" href="#Cabin" title="Permalink to this headline">¶</a></h3>
+<p>cabin因为缺失值过多，所以令缺失值为0，反之为1</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [166]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Embarked和Fare的缺失值都分别填上众数和平均数</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [168]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">Embarked</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>再次检查缺失值</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [169]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">total</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survived&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span><span class="n">percent</span><span class="p">,</span><span class="n">Type</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span><span class="s1">&#39;Percent&#39;</span><span class="p">,</span><span class="s1">&#39;Type&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[169]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total</th>
+      <th>Percent</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Age</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>Cabin</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>Embarked</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Fare</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Parch</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>PassengerId</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>Pclass</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>SibSp</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>Ticket</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Title</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>object</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="FamilySize">
+<h3>FamilySize<a class="headerlink" href="#FamilySize" title="Permalink to this headline">¶</a></h3>
+<p>增加家庭成员人数字段</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [170]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;FamilySize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<p>删掉不用的字段</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [171]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">,</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;SibSp&#39;</span><span class="p">,</span><span class="s1">&#39;Parch&#39;</span><span class="p">,</span><span class="s1">&#39;Ticket&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="4.-baseline建模及评估">
 <h2>4. baseline建模及评估<a class="headerlink" href="#4.-baseline建模及评估" title="Permalink to this headline">¶</a></h2>
