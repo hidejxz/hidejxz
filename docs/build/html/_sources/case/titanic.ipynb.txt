@@ -4,16 +4,18 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# 泰坦尼克号幸存预测\n",
+    "# Titanic幸存预测\n",
     "\n",
     "**目录**\n",
     "\n",
     "1. [概述](#概述)\n",
     "2. [数据分析](#数据分析)\n",
-    "3. [数据清洗及特征工程](#数据清洗及特征工程)\n",
-    "4. [建模及结果评估](#建模及结果评估)\n",
-    "5. [预测](#预测)\n",
-    "6. [总结](#总结)"
+    "3. [数据清洗](#数据清洗)\n",
+    "4. [baseline建模及评估](#baseline建模及评估) \n",
+    "5. [误差分析](#误差分析)\n",
+    "6. [进一步特征工程](#进一步特征工程)\n",
+    "7. [模型调优及融合](#模型调优及融合)\n",
+    "8. [总结](#总结)"
    ]
   },
   {
@@ -26,61 +28,9 @@
   {
    "cell_type": "markdown",
    "metadata": {},
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
+   "source": [
+    "Titanic幸存预测是Kaggle上的入门赛题。给定一些乘客的信息，及其最后是否幸存的label，作为训练样本,预测其他乘客是否幸存，是典型的二分类问题。"
+   ]
   },
   {
    "cell_type": "markdown",
@@ -90,64 +40,652 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {
     "collapsed": true
    },
-   "outputs": [],
-   "source": []
+   "source": [
+    "首先导入数据"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 2,
    "metadata": {
     "collapsed": true
    },
    "outputs": [],
-   "source": []
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import warnings\n",
+    "import matplotlib\n",
+    "warnings.filterwarnings('ignore')\n",
+    "%matplotlib inline\n",
+    "import seaborn as sns"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 3,
    "metadata": {
     "collapsed": true
    },
    "outputs": [],
-   "source": []
+   "source": [
+    "train = pd.read_csv('train.csv')\n",
+    "test = pd.read_csv('test.csv')"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>PassengerId</th>\n",
+       "      <th>Survived</th>\n",
+       "      <th>Pclass</th>\n",
+       "      <th>Name</th>\n",
+       "      <th>Sex</th>\n",
+       "      <th>Age</th>\n",
+       "      <th>SibSp</th>\n",
+       "      <th>Parch</th>\n",
+       "      <th>Ticket</th>\n",
+       "      <th>Fare</th>\n",
+       "      <th>Cabin</th>\n",
+       "      <th>Embarked</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Braund, Mr. Owen Harris</td>\n",
+       "      <td>male</td>\n",
+       "      <td>22.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>A/5 21171</td>\n",
+       "      <td>7.2500</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>S</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>\n",
+       "      <td>female</td>\n",
+       "      <td>38.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>PC 17599</td>\n",
+       "      <td>71.2833</td>\n",
+       "      <td>C85</td>\n",
+       "      <td>C</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Heikkinen, Miss. Laina</td>\n",
+       "      <td>female</td>\n",
+       "      <td>26.0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>STON/O2. 3101282</td>\n",
+       "      <td>7.9250</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>S</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>\n",
+       "      <td>female</td>\n",
+       "      <td>35.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>113803</td>\n",
+       "      <td>53.1000</td>\n",
+       "      <td>C123</td>\n",
+       "      <td>S</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>5</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Allen, Mr. William Henry</td>\n",
+       "      <td>male</td>\n",
+       "      <td>35.0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>373450</td>\n",
+       "      <td>8.0500</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>S</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   PassengerId  Survived  Pclass  \\\n",
+       "0            1         0       3   \n",
+       "1            2         1       1   \n",
+       "2            3         1       3   \n",
+       "3            4         1       1   \n",
+       "4            5         0       3   \n",
+       "\n",
+       "                                                Name     Sex   Age  SibSp  \\\n",
+       "0                            Braund, Mr. Owen Harris    male  22.0      1   \n",
+       "1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1   \n",
+       "2                             Heikkinen, Miss. Laina  female  26.0      0   \n",
+       "3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   \n",
+       "4                           Allen, Mr. William Henry    male  35.0      0   \n",
+       "\n",
+       "   Parch            Ticket     Fare Cabin Embarked  \n",
+       "0      0         A/5 21171   7.2500   NaN        S  \n",
+       "1      0          PC 17599  71.2833   C85        C  \n",
+       "2      0  STON/O2. 3101282   7.9250   NaN        S  \n",
+       "3      0            113803  53.1000  C123        S  \n",
+       "4      0            373450   8.0500   NaN        S  "
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "train.head()"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "891 418\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(train.shape[0],test.shape[0])"
+   ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## 3. 数据清洗及特征工程<a id='数据清洗及特征工程'></a>"
+    "#### Missing Data\n",
+    "年龄与舱位的数据缺失比较严重"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Total</th>\n",
+       "      <th>Percent</th>\n",
+       "      <th>Type</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>Age</th>\n",
+       "      <td>177</td>\n",
+       "      <td>0.198653</td>\n",
+       "      <td>float64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Cabin</th>\n",
+       "      <td>687</td>\n",
+       "      <td>0.771044</td>\n",
+       "      <td>object</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Embarked</th>\n",
+       "      <td>2</td>\n",
+       "      <td>0.002245</td>\n",
+       "      <td>object</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Fare</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>float64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Name</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>object</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Parch</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>int64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>PassengerId</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>int64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Pclass</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>int64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Sex</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>object</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>SibSp</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>int64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Survived</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>int64</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Ticket</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>object</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "             Total   Percent     Type\n",
+       "Age            177  0.198653  float64\n",
+       "Cabin          687  0.771044   object\n",
+       "Embarked         2  0.002245   object\n",
+       "Fare             0  0.000000  float64\n",
+       "Name             0  0.000000   object\n",
+       "Parch            0  0.000000    int64\n",
+       "PassengerId      0  0.000000    int64\n",
+       "Pclass           0  0.000000    int64\n",
+       "Sex              0  0.000000   object\n",
+       "SibSp            0  0.000000    int64\n",
+       "Survived         0  0.000000    int64\n",
+       "Ticket           0  0.000000   object"
+      ]
+     },
+     "execution_count": 46,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "total = train.isnull().sum().sort_values(ascending=False)\n",
+    "percent = (train.isnull().sum()/train.isnull().count()).sort_values(ascending=False)\n",
+    "Type = train.dtypes\n",
+    "pd.concat([total,percent,Type], axis=1, keys=['Total', 'Percent','Type'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.3838383838383838"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "train['Survived'].mean()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>count</th>\n",
+       "      <th>Survived</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Pclass</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>216</td>\n",
+       "      <td>0.629630</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>184</td>\n",
+       "      <td>0.472826</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>491</td>\n",
+       "      <td>0.242363</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        count  Survived\n",
+       "Pclass                 \n",
+       "1         216  0.629630\n",
+       "2         184  0.472826\n",
+       "3         491  0.242363"
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "survived = train[['Pclass','Survived']].groupby(['Pclass']).mean()\n",
+    "count = train[['Pclass','Survived']].groupby(['Pclass']).count()\n",
+    "count.columns = ['count']\n",
+    "pd.concat([count,survived], axis=1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 3等座人数最多，1等2等差不多\n",
+    "* 等级越高，幸存率越高"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>count</th>\n",
+       "      <th>Survived</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Sex</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>female</th>\n",
+       "      <td>314</td>\n",
+       "      <td>0.742038</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>male</th>\n",
+       "      <td>577</td>\n",
+       "      <td>0.188908</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        count  Survived\n",
+       "Sex                    \n",
+       "female    314  0.742038\n",
+       "male      577  0.188908"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "survived = train[['Sex','Survived']].groupby(['Sex']).mean()\n",
+    "count = train[['Sex','Survived']].groupby(['Sex']).count()\n",
+    "count.columns = ['count']\n",
+    "pd.concat([count,survived], axis=1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 女性生存几率大大高于男性"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>count</th>\n",
+       "      <th>Survived</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Embarked</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>C</th>\n",
+       "      <td>168</td>\n",
+       "      <td>0.553571</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Q</th>\n",
+       "      <td>77</td>\n",
+       "      <td>0.389610</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>S</th>\n",
+       "      <td>644</td>\n",
+       "      <td>0.336957</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "          count  Survived\n",
+       "Embarked                 \n",
+       "C           168  0.553571\n",
+       "Q            77  0.389610\n",
+       "S           644  0.336957"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "survived = train[['Embarked','Survived']].groupby(['Embarked']).mean()\n",
+    "count = train[['Embarked','Survived']].groupby(['Embarked']).count()\n",
+    "count.columns = ['count']\n",
+    "pd.concat([count,survived], axis=1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 登船口以S居多，C的幸存率较其他两个稍微高一点"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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\nKW+nAAAAAElFTkSuQmCC\n",
+      "text/plain": [
+       "<matplotlib.figure.Figure at 0x1a1ad35eb8>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import seaborn as sns\n",
+    "sns.set_style(\"darkgrid\")\n",
+    "sns.boxplot(x=\"Survived\", y=\"Age\", data=train[['Age','Survived']], palette=\"muted\")\n",
+    "sns.despine(offset=10, trim=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 从年龄上看，并没有太大的差别"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 3. 数据清洗<a id='数据清洗'></a>"
    ]
   },
   {
@@ -208,7 +746,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## 4. 建模及结果评估<a id='建模及结果评估'></a>"
+    "## 4. baseline建模及评估<a id='baseline建模及评估'></a>"
    ]
   },
   {
@@ -269,7 +807,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## 5. 预测<a id='预测'></a>"
+    "## 5. 误差分析<a id='误差分析'></a>"
    ]
   },
   {
@@ -330,7 +868,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## 6. 总结<a id='总结'></a>"
+    "## 6. 进一步特征工程<a id='进一步特征工程'></a>"
    ]
   },
   {
@@ -343,13 +881,13 @@
    "source": []
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {
     "collapsed": true
    },
-   "outputs": [],
-   "source": []
+   "source": [
+    "## 7. 模型调优及融合<a id='模型调优及融合'></a>"
+   ]
   },
   {
    "cell_type": "code",
@@ -361,13 +899,13 @@
    "source": []
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {
     "collapsed": true
    },
-   "outputs": [],
-   "source": []
+   "source": [
+    "## 8. 总结<a id='总结'></a>"
+   ]
   },
   {
    "cell_type": "code",
