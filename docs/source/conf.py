@@ -123,21 +123,22 @@ htmlhelp_basename = 'hidejxz-blogdoc'
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
+    #'papersize': 'letterpaper',
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
+    #'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
     #
-    # 'preamble': '',
+    #'preamble': '',
 
     # Latex figure (float) alignment
     #
-    # 'figure_align': 'htbp',
-    #'papersize':'a4paper',# The font size ('10pt', '11pt' or '12pt').
-    'pointsize':'12pt','classoptions':',oneside','babel':'',#必須
+    #'figure_align': 'htbp',
+    #'papersize':'a4paper',
+    # The font size ('10pt', '11pt' or '12pt').
+    'pointsize':'10pt','classoptions':',oneside','babel':'',#必須
     'inputenc':'',#必須
     'utf8extra':'',#必須
     ## Additional stuff for the LaTeX preamble.

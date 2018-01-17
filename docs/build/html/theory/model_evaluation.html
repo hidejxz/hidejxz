@@ -100,7 +100,11 @@
 <li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">模型评估</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">模型评估</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classification">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regression">Regression</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pca.html">PCA降维</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
 </ul>
@@ -208,6 +212,26 @@
 </style>
 <div class="section" id="id1">
 <h1>模型评估<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="classification">
+<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Accuracy</li>
+</ul>
+<div class="math">
+\[accuary(y,\widehat{y})=\frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}(\widehat{y}_i=y_i)\]</div>
+<ul class="simple">
+<li>Precision,Recall and F1-Score</li>
+<li>Confusion matrix</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/eval_matrix.png"><img alt="../_images/eval_matrix.png" class="align-center" src="../_images/eval_matrix.png" style="width: 300px;" /></a>
+<ul class="simple">
+<li>ROC</li>
+<li>AUC</li>
+</ul>
+</div>
+<div class="section" id="regression">
+<h2>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
