@@ -117,12 +117,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#KNN">KNN</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Random-Forest">Random Forest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Xgboost">Xgboost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#模型对比">模型对比</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#5.-误差分析">5. 误差分析</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#6.-进一步特征工程">6. 进一步特征工程</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#7.-模型调优及融合">7. 模型调优及融合</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#8.-总结">8. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#5.-模型融合及评估">5. 模型融合及评估</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.-预测及提交">6. 预测及提交</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.-总结">7. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="house_prices.html">房价预测</a></li>
@@ -401,9 +401,8 @@ div.nboutput div.output_area.stderr {
 <li><a class="reference external" href="#数据分析">数据分析</a></li>
 <li><a class="reference external" href="#数据清洗">数据清洗</a></li>
 <li><a class="reference external" href="#baseline建模及评估">baseline建模及评估</a></li>
-<li><a class="reference external" href="#误差分析">误差分析</a></li>
-<li><a class="reference external" href="#进一步特征工程">进一步特征工程</a></li>
-<li><a class="reference external" href="#模型调优及融合">模型调优及融合</a></li>
+<li><a class="reference external" href="#模型融合及评估">模型融合及评估</a></li>
+<li><a class="reference external" href="#预测及提交">预测及提交</a></li>
 <li><a class="reference external" href="#总结">总结</a></li>
 </ol>
 <div class="section" id="1.-概述">
@@ -415,7 +414,7 @@ div.nboutput div.output_area.stderr {
 <p>首先导入数据</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [332]:
+<span></span>In [1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -432,7 +431,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [270]:
+<span></span>In [2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -444,7 +443,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [271]:
+<span></span>In [3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -454,7 +453,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[271]:
+<span></span>Out[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -572,7 +571,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [272]:
+<span></span>In [4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -590,7 +589,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [273]:
+<span></span>In [5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -600,7 +599,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[273]:
+<span></span>Out[5]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -613,7 +612,7 @@ div.nboutput div.output_area.stderr {
 <p>年龄与舱位的数据缺失比较严重</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [274]:
+<span></span>In [6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -626,7 +625,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[274]:
+<span></span>Out[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -733,7 +732,7 @@ div.nboutput div.output_area.stderr {
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [275]:
+<span></span>In [7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -746,7 +745,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[275]:
+<span></span>Out[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -802,7 +801,7 @@ div.nboutput div.output_area.stderr {
 <p>女性生存几率大大高于男性</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [276]:
+<span></span>In [8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -815,7 +814,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[276]:
+<span></span>Out[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -865,7 +864,7 @@ div.nboutput div.output_area.stderr {
 <p>登船口以S居多，C的存活率较其他两个稍微高一点</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [277]:
+<span></span>In [9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -878,7 +877,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[277]:
+<span></span>Out[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -934,7 +933,7 @@ div.nboutput div.output_area.stderr {
 <p>从年龄上看，并没有太大的差别</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [278]:
+<span></span>In [10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -961,7 +960,7 @@ div.nboutput div.output_area.stderr {
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [279]:
+<span></span>In [11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -986,7 +985,7 @@ div.nboutput div.output_area.stderr {
 <p>首先处理缺失数据。对于乘客的年龄，考虑到其年龄可能会与其称谓头衔有关，故先从Name字段中提炼出头衔，并对一些少数的特殊称谓汇总。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [280]:
+<span></span>In [12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1021,7 +1020,7 @@ div.nboutput div.output_area.stderr {
 <p>Mrs和Miss的存活率还是蛮高的，Mr就比较悲剧，这跟性别有很大关系</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [281]:
+<span></span>In [13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1034,7 +1033,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[281]:
+<span></span>Out[13]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1107,7 +1106,7 @@ div.nboutput div.output_area.stderr {
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [282]:
+<span></span>In [14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1130,7 +1129,7 @@ div.nboutput div.output_area.stderr {
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [283]:
+<span></span>In [15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1151,7 +1150,7 @@ div.nboutput div.output_area.stderr {
 <p>基于以上两个属性，对缺失的年龄进行分组填充</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [284]:
+<span></span>In [16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1170,7 +1169,7 @@ div.nboutput div.output_area.stderr {
 <p>cabin因为缺失值过多，所以令缺失值为0，反之为1</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [285]:
+<span></span>In [17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1183,7 +1182,7 @@ div.nboutput div.output_area.stderr {
 <p>Embarked和Fare的缺失值都分别填上众数和平均数</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [286]:
+<span></span>In [18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1196,7 +1195,7 @@ div.nboutput div.output_area.stderr {
 <p>再次检查缺失值</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [287]:
+<span></span>In [19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1209,7 +1208,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[287]:
+<span></span>Out[19]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1319,7 +1318,7 @@ div.nboutput div.output_area.stderr {
 <p>增加家庭成员人数字段</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [288]:
+<span></span>In [20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1330,7 +1329,7 @@ div.nboutput div.output_area.stderr {
 <p>删掉不用的字段</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [289]:
+<span></span>In [21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1340,7 +1339,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [290]:
+<span></span>In [22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1350,7 +1349,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[290]:
+<span></span>Out[22]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1370,7 +1369,7 @@ dtype: object
 <p>对数据进行必要的处理，为喂入模型做准备</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [291]:
+<span></span>In [23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1382,7 +1381,7 @@ dtype: object
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [292]:
+<span></span>In [24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1392,7 +1391,7 @@ dtype: object
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [293]:
+<span></span>In [25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1402,7 +1401,7 @@ dtype: object
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [294]:
+<span></span>In [26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1413,7 +1412,7 @@ dtype: object
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[294]:
+<span></span>Out[26]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1426,7 +1425,7 @@ dtype: float64
 <p>Fare偏度过大，将其取对数</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [295]:
+<span></span>In [27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1437,7 +1436,7 @@ dtype: float64
 <p>将所有数据标准化</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [298]:
+<span></span>In [28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1448,7 +1447,7 @@ dtype: float64
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [301]:
+<span></span>In [29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1458,7 +1457,7 @@ dtype: float64
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[301]:
+<span></span>Out[29]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1649,7 +1648,7 @@ dtype: float64
 <p>数据切分</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [306]:
+<span></span>In [30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1666,7 +1665,7 @@ dtype: float64
 <p>本次准备尝试LR,SVM,KNN,RF,Xgboost</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [334]:
+<span></span>In [31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1704,7 +1703,7 @@ dtype: float64
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [329]:
+<span></span>In [32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1721,7 +1720,8 @@ dtype: float64
         <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
         <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">ytrain</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">ytrain</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
         <span class="n">begin_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">predictions</span><span class="p">,</span><span class="n">model_o</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
         <span class="n">end_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">exe_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">end_t</span><span class="o">-</span><span class="n">begin_t</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
@@ -1731,7 +1731,7 @@ dtype: float64
 
     <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;mean accuracy_scores: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracy_scores</span><span class="p">))</span>
     <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;mean model process time: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">exe_time</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
-    <span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">model_o</span><span class="p">,</span> <span class="s2">&quot;Learning Curves&quot;</span><span class="p">,</span><span class="n">train</span><span class="p">,</span> <span class="n">ytrain</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;Learning Curves&quot;</span><span class="p">,</span><span class="n">train</span><span class="p">,</span> <span class="n">ytrain</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracy_scores</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">exe_time</span><span class="p">)</span>
 </pre></div>
@@ -1739,7 +1739,7 @@ dtype: float64
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [327]:
+<span></span>In [33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1752,16 +1752,12 @@ dtype: float64
 <h3>Logistic Regression<a class="headerlink" href="#Logistic-Regression" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [360]:
+<span></span>In [34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LogisticRegression</span>
-<span class="k">def</span> <span class="nf">lr_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span><span class="n">model</span>
+<span class="n">lr_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">mean_accuracy</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">lr_model</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1772,7 +1768,7 @@ dtype: float64
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 mean accuracy_scores:  0.827184216396
-mean model process time:  0.0036 s
+mean model process time:  0.0028 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1787,16 +1783,12 @@ mean model process time:  0.0036 s
 <h3>SVM<a class="headerlink" href="#SVM" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [362]:
+<span></span>In [35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVC</span>
-<span class="k">def</span> <span class="nf">svc_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span><span class="n">model</span>
+<span class="n">svc_model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">mean_accuracy</span><span class="p">[</span><span class="s1">&#39;svc&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;svc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">svc_model</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1807,7 +1799,7 @@ mean model process time:  0.0036 s
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 mean accuracy_scores:  0.823832261089
-mean model process time:  0.0232 s
+mean model process time:  0.02 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1822,16 +1814,12 @@ mean model process time:  0.0232 s
 <h3>KNN<a class="headerlink" href="#KNN" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [363]:
+<span></span>In [36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="k">def</span> <span class="nf">knn_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span><span class="n">model</span>
+<span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">mean_accuracy</span><span class="p">[</span><span class="s1">&#39;knn&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;knn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">knn_model</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1841,8 +1829,8 @@ mean model process time:  0.0232 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-mean accuracy_scores:  0.823832261089
-mean model process time:  0.0166 s
+mean accuracy_scores:  0.805873209572
+mean model process time:  0.0078 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1857,16 +1845,12 @@ mean model process time:  0.0166 s
 <h3>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [402]:
+<span></span>In [37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
-<span class="k">def</span> <span class="nf">rf_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span><span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="n">min_samples_split</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span><span class="n">model</span>
+<span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">mean_accuracy</span><span class="p">[</span><span class="s1">&#39;rf&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;rf&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">rf_model</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1876,8 +1860,8 @@ mean model process time:  0.0166 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-mean accuracy_scores:  0.822676925598
-mean model process time:  0.0194 s
+mean accuracy_scores:  0.826035299829
+mean model process time:  0.0182 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1892,19 +1876,152 @@ mean model process time:  0.0194 s
 <h3>Xgboost<a class="headerlink" href="#Xgboost" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [424]:
+<span></span>In [38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">xgboost.sklearn</span> <span class="k">import</span> <span class="n">XGBClassifier</span>
-<span class="k">def</span> <span class="nf">xgb_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">learning_rate</span> <span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>\
+<span class="n">xgb_model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">learning_rate</span> <span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>\
         <span class="n">min_child_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">subsample</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>\
         <span class="n">objective</span><span class="o">=</span> <span class="s1">&#39;binary:logistic&#39;</span><span class="p">,</span><span class="n">scale_pos_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">27</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span><span class="n">model</span>
 <span class="n">mean_accuracy</span><span class="p">[</span><span class="s1">&#39;xgb&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;xgb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">xgb_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+/Users/jinxinzhe/anaconda3/lib/python3.6/site-packages/sklearn/cross_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  &#34;This module will be removed in 0.20.&#34;, DeprecationWarning)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean accuracy_scores:  0.835036830796
+mean model process time:  0.011 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_titanic_70_2.png" src="../_images/case_titanic_70_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="模型对比">
+<h3>模型对比<a class="headerlink" href="#模型对比" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">df_eval</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_accuracy</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                  <span class="s2">&quot;accuracy&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_accuracy</span><span class="o">.</span><span class="n">values</span><span class="p">())}</span>
+<span class="n">df_eval</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_eval</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<span class="n">df_eval</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[39]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model</th>
+      <th>accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>xgb</td>
+      <td>0.835037</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>lr</td>
+      <td>0.827184</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rf</td>
+      <td>0.826035</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>svc</td>
+      <td>0.823832</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>knn</td>
+      <td>0.805873</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_eval</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_titanic_73_0.png" src="../_images/case_titanic_73_0.png" />
+</div>
+</div>
+<p>可以看到，模型之间并没有很大的差距；效果最好的是xgboost，knn的效果相对较差</p>
+</div>
+</div>
+<div class="section" id="5.-模型融合及评估">
+<h2>5. 模型融合及评估<a class="headerlink" href="#5.-模型融合及评估" title="Permalink to this headline">¶</a></h2>
+<p>排除分数相对较低的knn，将模型stack一下</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">mlxtend.classifier</span> <span class="k">import</span> <span class="n">StackingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+<span class="n">sclf_model</span> <span class="o">=</span> <span class="n">StackingClassifier</span><span class="p">(</span><span class="n">classifiers</span><span class="o">=</span><span class="p">[</span><span class="n">lr_model</span><span class="p">,</span> <span class="n">svc_model</span><span class="p">,</span> <span class="n">rf_model</span><span class="p">,</span> <span class="n">xgb_model</span><span class="p">],</span><span class="n">meta_classifier</span><span class="o">=</span><span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">mean_accuracy</span><span class="p">[</span><span class="s1">&#39;stack&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;stack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sclf_model</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1913,56 +2030,124 @@ mean model process time:  0.0194 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-mean accuracy_scores:  0.831672321349
-mean model process time:  0.0066 s
+mean accuracy_scores:  0.836147872162
+mean model process time:  0.0566 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/case_titanic_70_1.png" src="../_images/case_titanic_70_1.png" />
+<img alt="../_images/case_titanic_77_1.png" src="../_images/case_titanic_77_1.png" />
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [425]:
+<span></span>In [42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">learning_rate</span> <span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>\
-    <span class="n">min_child_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">subsample</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>\
-    <span class="n">objective</span><span class="o">=</span> <span class="s1">&#39;binary:logistic&#39;</span><span class="p">,</span><span class="n">scale_pos_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">27</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span></span><span class="n">df_eval</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_accuracy</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                  <span class="s2">&quot;accuracy&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_accuracy</span><span class="o">.</span><span class="n">values</span><span class="p">())}</span>
+<span class="n">df_eval</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_eval</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<span class="n">df_eval</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model</th>
+      <th>accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>stack</td>
+      <td>0.836148</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>xgb</td>
+      <td>0.835037</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>lr</td>
+      <td>0.827184</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rf</td>
+      <td>0.826035</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>svc</td>
+      <td>0.823832</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>knn</td>
+      <td>0.805873</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>stack后模型效果好了那么一丢丢。。。</p>
+</div>
+<div class="section" id="6.-预测及提交">
+<h2>6. 预测及提交<a class="headerlink" href="#6.-预测及提交" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [426]:
+<span></span>In [43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">obj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Survived&#39;</span><span class="p">)</span>
+<span></span><span class="n">sclf_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sclf_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Survived&#39;</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">],</span><span class="n">obj</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">result</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;titanic0118.csv&#39;</span><span class="p">,</span><span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;result_stack.csv&#39;</span><span class="p">,</span><span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="figure">
+<img alt="" src="../_images/titanic_score.png" />
 </div>
 </div>
-<div class="section" id="5.-误差分析">
-<h2>5. 误差分析<a class="headerlink" href="#5.-误差分析" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="6.-进一步特征工程">
-<h2>6. 进一步特征工程<a class="headerlink" href="#6.-进一步特征工程" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="7.-模型调优及融合">
-<h2>7. 模型调优及融合<a class="headerlink" href="#7.-模型调优及融合" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="8.-总结">
-<h2>8. 总结<a class="headerlink" href="#8.-总结" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="7.-总结">
+<h2>7. 总结<a class="headerlink" href="#7.-总结" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>因为是Kaggle的入门练习赛,所以数据量和维度都不是很大;</li>
+<li>除非是有非常大的把握,不然不要轻易把连续特征离散化(如这里的Age,Fare),否则很容易造成过拟合;</li>
+<li>基于第1条总结,本次没有对模型进行gridsearch调优,也没有必要为了提升最后的一点分数花太多的精力,因为该赛题本身不具有数据挖掘问题的普遍性,但从另一方面来说,比较适合拿来练习各种工具包如pandas,numpy,matplotib,seaborns,sklearn,尝试各种算法及个人idea;</li>
+<li>xgboost在这类问题上还是非常好用的;</li>
+<li>一般一个完整的流程,会在baseline模型完成后进行一次初步的提交试探成绩,以及进行人工误差分析;从分析结果中的到一些新的想法,进一步优化特征工程以及模型,再进行提交…是一个迭代的过程。这边因为数据集比较简少,所以省略了迭代的过程。</li>
+</ol>
 </div>
 </div>
 
