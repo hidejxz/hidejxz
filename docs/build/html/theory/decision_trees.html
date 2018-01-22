@@ -94,7 +94,19 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">理论部分</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">决策树</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">决策树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">基本流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">特征划分</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#c3">1. C3 - 信息增益</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c4-5">2. C4.5 - 信息增益比</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gini-cart">3. Gini指数 - CART分类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cart">4. 误差平方和 - CART回归</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">剪枝</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">优缺点</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
@@ -208,6 +220,70 @@
 </style>
 <div class="section" id="id1">
 <h1>决策树<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>基本流程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>决策树的学习是一个递归的,选择最优特征和进行最优分割的过程,使得被分割的样本子集中,目标值尽可能的最纯。决策树相当于一系列条件规则模型(if-then),比较容易解读,因此应用也比较广泛。</p>
+</div>
+<div class="section" id="id3">
+<h2>特征划分<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="c3">
+<h3>1. C3 - 信息增益<a class="headerlink" href="#c3" title="Permalink to this headline">¶</a></h3>
+<p>熵的定义:</p>
+<div class="math">
+\[Ent(p) = -\sum_{i=1}^np_i\log p_i\]</div>
+<p>当变量只有两个值时,熵的曲线如下图:</p>
+<a class="reference internal image-reference" href="../_images/dt_entropy.png"><img alt="../_images/dt_entropy.png" class="align-center" src="../_images/dt_entropy.png" style="width: 300px;" /></a>
+<p>当 <span class="math">\(p=0\)</span> 或 <span class="math">\(p=1\)</span> 时,变量最纯,此时熵为0;当 <span class="math">\(p=0.5\)</span> 时,变量不确定性最大,此时熵也最大,为1;</p>
+<p>假设离散属性 <span class="math">\(a\)</span> 有 <span class="math">\(V\)</span> 个可能的取值, 用它来划分样本集 <span class="math">\(D\)</span> ,会产生 <span class="math">\(V\)</span> 个分支结点,则信息增益可以表示为:</p>
+<div class="math">
+\[Gain(D,a) = Ent(D) - \sum_{i=1}^V\frac{|D|}{|D^{v}|}Ent(D^v)\]</div>
+<p>比较各属性的信息增益,选择信息增益最大的特征进行划分。划分完之后,对产生的 <span class="math">\(V\)</span> 个子集各自继续划分,直到无法划分为止。</p>
+</div>
+<div class="section" id="c4-5">
+<h3>2. C4.5 - 信息增益比<a class="headerlink" href="#c4-5" title="Permalink to this headline">¶</a></h3>
+<p>C4.5相比与C3,采用的是信息增益比的方法,这样做会让划分更变偏向于取值数目较少的属性:</p>
+<div class="math">
+\[Gain\_ratio(D,a) = \frac{Gain(D,a)}{Ent_a(D)}\]</div>
+<p>另外,C5.0也是通过信息增益率来划分结点的,在准确率,性能方面都会优于C4.5。</p>
+</div>
+<div class="section" id="gini-cart">
+<h3>3. Gini指数 - CART分类<a class="headerlink" href="#gini-cart" title="Permalink to this headline">¶</a></h3>
+<p>Gini指数的定义:</p>
+<div class="math">
+\[Gini(p) = \sum_{i=1}^np_i(1-p_i) = 1-\sum_{i=1}^np_i^2\]</div>
+<p>二分类问题中基尼指数,1/2熵和分类误差率的关系如图:</p>
+<a class="reference internal image-reference" href="../_images/dt_gini.png"><img alt="../_images/dt_gini.png" class="align-center" src="../_images/dt_gini.png" style="width: 300px;" /></a>
+<p>在数据集中的Gini指数则定义为</p>
+<div class="math">
+\[Gini(D,a) = \sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)\]</div>
+<p>选择Gini指数最小的特征进行划分。</p>
+</div>
+<div class="section" id="cart">
+<h3>4. 误差平方和 - CART回归<a class="headerlink" href="#cart" title="Permalink to this headline">¶</a></h3>
+<p>CART回归会遍历每个特征的每个取值,找到一个最佳切分点,使得每个子集的误差平方和最小,而其平均数就是这个子集的输出值。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>剪枝<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>剪枝的目的是防止模型过拟合。整体的损失函数可以总结为:</p>
+<div class="math">
+\[C_{\alpha}(T) = C(T) + \alpha|T|\]</div>
+<p><span class="math">\(C(T)\)</span> 为模型的训练误差(熵或者Gini指数),:math:<cite>|T|</cite> 为叶结点个数,表示模型的复杂程度。</p>
+<p>剪枝分为前剪枝和后剪枝。前剪枝比较容易造成欠拟合,一般用后剪枝比较多。</p>
+</div>
+<div class="section" id="id5">
+<h2>优缺点<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>优点</li>
+</ul>
+<p>1.可解释性强,能可视化展现;</p>
+<p>2.只需要较少的数据预处理,对缺失值不敏感。</p>
+<ul class="simple">
+<li>缺点</li>
+</ul>
+<p>1.决策树的增长采用的是局部最优的策略,因此不太稳定,需要用融合的方式来优化;</p>
+<p>2.特征空间的划分都是垂直于维度的,不能解决异或问题或者多元问题。</p>
+</div>
 </div>
 
 
