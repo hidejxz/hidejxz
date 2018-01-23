@@ -105,6 +105,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">剪枝</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">优缺点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">其他补充</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
@@ -236,7 +237,7 @@
 <p>当 <span class="math">\(p=0\)</span> 或 <span class="math">\(p=1\)</span> 时,变量最纯,此时熵为0;当 <span class="math">\(p=0.5\)</span> 时,变量不确定性最大,此时熵也最大,为1;</p>
 <p>假设离散属性 <span class="math">\(a\)</span> 有 <span class="math">\(V\)</span> 个可能的取值, 用它来划分样本集 <span class="math">\(D\)</span> ,会产生 <span class="math">\(V\)</span> 个分支结点,则信息增益可以表示为:</p>
 <div class="math">
-\[Gain(D,a) = Ent(D) - \sum_{i=1}^V\frac{|D|}{|D^{v}|}Ent(D^v)\]</div>
+\[Gain(D,a) = Ent(D) - \sum_{i=1}^V\frac{|D^{v}|}{|D|}Ent(D^v)\]</div>
 <p>比较各属性的信息增益,选择信息增益最大的特征进行划分。划分完之后,对产生的 <span class="math">\(V\)</span> 个子集各自继续划分,直到无法划分为止。</p>
 </div>
 <div class="section" id="c4-5">
@@ -283,6 +284,14 @@
 </ul>
 <p>1.决策树的增长采用的是局部最优的策略,因此不太稳定,需要用融合的方式来优化;</p>
 <p>2.特征空间的划分都是垂直于维度的,不能解决异或问题或者多元问题。</p>
+</div>
+<div class="section" id="id6">
+<h2>其他补充<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>CART是二叉树,个人理解1是为了尽可能避免局部最优的问题,2是防止过拟合;</li>
+<li>对于缺失值的处理,首先会根据该特征的非缺失数据集进行划分,然后再把缺失值带有权重的划分到子集中,权重由该取值在样本中的数量占比决定,即哪种取值多,权重概率就大,缺失样本被分到该类的可能性就越大;</li>
+<li>亦有多变量决策树(斜决策树)可以一定程度地解决变量划分只能平行于维度的问题。此时不再是寻找单一的特征划分点,而是去寻找一个合适的线性分类器。</li>
+</ol>
 </div>
 </div>
 
