@@ -77,11 +77,14 @@ SVM的线性分类问题得先从逻辑回归说起。
 目标函数:
 
 .. math:: 
-    \begin{align}
-    LR &: \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
-    SVM线性 &: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2\\
-    SVM非线性 &: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)})+(1-y)^{(i)}cost_0(\theta^Tf^{(i)})\right]+\frac{1}{2}\sum_{i=1}^m\theta_i^2
-    \end{align}
+    LR : \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2
+
+.. math:: 
+    SVM线性 : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2
+
+.. math:: 
+    SVM非线性 : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)})+(1-y)^{(i)}cost_0(\theta^Tf^{(i)})\right]+\frac{1}{2}\sum_{i=1}^m\theta_i^2
+
 
 SVM参数:
 

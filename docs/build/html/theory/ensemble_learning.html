@@ -356,7 +356,7 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 <a class="reference internal image-reference" href="../_images/ensemble_stack.png"><img alt="../_images/ensemble_stack.png" class="align-center" src="../_images/ensemble_stack.png" style="width: 500px;" /></a>
 <p>假设用 <span class="math">\(m\)</span> 个分类器 <span class="math">\(C_m\)</span> 对数据集(n个样本)进行  <span class="math">\(k\)</span>  折交叉堆叠:</p>
 <ol class="arabic simple">
-<li>每次的交叉验证都是用 <span class="math">\(C_m\)</span> 对当前训练集拟合,对验证集的预测值作为输出,可以得到 <span class="math">\(m\)</span> 列, <span class="math">\(n/k\)</span> 行的结果集;</li>
+<li>每次的交叉验证都是用 <span class="math">\(C_m\)</span> 对当前训练集拟合,对验证集的预测值作为输出,可以得到 <span class="math">\(m\)</span> 列, <span class="math">\(\frac{n}{k}\)</span> 行的结果集;</li>
 <li>如此进行 <span class="math">\(k\)</span> 轮训练,将结果纵向堆叠,即可得到一个 <span class="math">\(m\)</span> 列, <span class="math">\(n\)</span> 行的结果集;</li>
 <li>将该结果集作为样本,用一个Meta-Classifer预测,得到最终结果。</li>
 </ol>

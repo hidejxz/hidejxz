@@ -260,11 +260,11 @@ f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\rig
 <a class="reference internal image-reference" href="../_images/svm_non_lin2.png"><img alt="../_images/svm_non_lin2.png" class="align-center" src="../_images/svm_non_lin2.png" style="width: 800px;" /></a>
 <p>目标函数:</p>
 <div class="math">
-\[\begin{split}\begin{align}
-LR &amp;: \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
-SVM线性 &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2\\
-SVM非线性 &amp;: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)})+(1-y)^{(i)}cost_0(\theta^Tf^{(i)})\right]+\frac{1}{2}\sum_{i=1}^m\theta_i^2
-\end{align}\end{split}\]</div>
+\[LR : \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\]</div>
+<div class="math">
+\[SVM线性 : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2\]</div>
+<div class="math">
+\[SVM非线性 : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)})+(1-y)^{(i)}cost_0(\theta^Tf^{(i)})\right]+\frac{1}{2}\sum_{i=1}^m\theta_i^2\]</div>
 <p>SVM参数:</p>
 <a class="reference internal image-reference" href="../_images/svm_parameters.png"><img alt="../_images/svm_parameters.png" class="align-center" src="../_images/svm_parameters.png" style="width: 800px;" /></a>
 </div>
