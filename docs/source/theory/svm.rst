@@ -11,10 +11,10 @@ SVM的线性分类问题得先从逻辑回归说起。
 如上图所示，在y=1和y=0两种情况下，分别对损失函数做了更严格的调整，并对整个损失函数除以了 :math:`\frac{\lambda}{m}` ,即：
 
 .. math:: 
-    \begin{align}
-    LR &: \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
-    SVM &: \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2
-    \end{align}
+    LR : \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2
+
+.. math::     
+    SVM : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2
 
 为了最小化损失函数，得让函数的第一项无限逼近于0，而正则项最小化，即
 

@@ -99,7 +99,21 @@
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">集成学习</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">集成学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bagging">Bagging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#random-forest">Random Forest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#boosting">Boosting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adaboost">Adaboost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gbdt">GBDT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xgboost">XGBoost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightgbm">LightGBM</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#stacking">Stacking</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pca.html">PCA降维</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
@@ -208,6 +222,146 @@
 </style>
 <div class="section" id="id1">
 <h1>集成学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>集成学习的目的,就是把一些个体基学习器按照某种策略融合到一起,形成一个比每个单一基学习器效果都要好的融合模型。</p>
+<div class="section" id="bagging">
+<h2>Bagging<a class="headerlink" href="#bagging" title="Permalink to this headline">¶</a></h2>
+<p>给定包含m个样本的数据集,有放回地抽样m次,得到一个含m个样本的子集(初始训练集中有63.2%的样本出现在该子集中)。如此进行T次操作,即可得到T个含m个样本的采样集。基于每个采样集训练出一个基学习器,再将它们结合:分类问题可以采用简单投票法,回归问题可以采用简单平均法。</p>
+<div class="section" id="random-forest">
+<h3>Random Forest<a class="headerlink" href="#random-forest" title="Permalink to this headline">¶</a></h3>
+<p>随机森林是最典型的Bagging扩展体之一。其基分类器为决策树,除了对样本进行有放回的抽取之外,每次还会随机选择k个属性进行训练,最后对结果进行结合。</p>
+<p>随机森林的每个基分类采用的是部分属性和部分样本进行训练,因此每棵基树都会学的很深,然后再结合。这样的策略与boosting有很大的区别。</p>
+</div>
+</div>
+<div class="section" id="boosting">
+<h2>Boosting<a class="headerlink" href="#boosting" title="Permalink to this headline">¶</a></h2>
+<p>首先从初始训练集训练出一个基学习器,再根据分类结果对样本进行权重调整,被错误分类的样本会得到较高的权重,受到更多的关注,形成新的样本进行下一轮的训练,直到指定的T轮。最终将这T个基学习器加权结合。</p>
+<p>相比与Bagging,Boosting更关注于降低偏差。所以每个基分类都不会训练得太深,而是采取多次迭代提升的策略,来防止过拟合。</p>
+<p>提升方法最常见的使用场景时在决策树上。</p>
+<div class="section" id="adaboost">
+<h3>Adaboost<a class="headerlink" href="#adaboost" title="Permalink to this headline">¶</a></h3>
+<p>设训练数据集 <span class="math">\(T={(x_1,y_1),(x_1,y_1),\cdots ,(x_N,y_N)}\)</span>, <span class="math">\(y_i\in \{-1,1\}\)</span></p>
+<ul class="simple">
+<li>分类</li>
+</ul>
+<ol class="arabic simple">
+<li>初始化训练数据的权值分布</li>
+</ol>
+<div class="math">
+\[D_1=(w_{11},\cdots ,w_{1i},\cdots ,w_{1N}),\ w_{1i}=\frac{1}{N},\ i=1,2,\cdots,N\]</div>
+<ol class="arabic simple" start="2">
+<li>使用具有权值分布 <span class="math">\(D_m\)</span> 的训练数据集学习,得到基分类器 <span class="math">\(G_m(x)\)</span></li>
+<li>计算 <span class="math">\(G_m(x)\)</span> 在训练集上的分类误差率</li>
+</ol>
+<div class="math">
+\[e_m=P(G_m(x_i\ne y_i)) = \sum_{i=1}^Nw_{mi}I(G_m(x_i)\ne y_i)\]</div>
+<ol class="arabic simple" start="4">
+<li>计算 <span class="math">\(G_m(x)\)</span> 的系数</li>
+</ol>
+<div class="math">
+\[\alpha_m=\frac{1}{2}\log \frac{1-e_m}{e_m}\]</div>
+<ol class="arabic simple" start="5">
+<li>更新训练集的权值分布</li>
+</ol>
+<div class="math">
+\[D_{m+1}=(w_{m+1,1},\cdots ,w_{m+1,i},\cdots ,w_{m+1,N})\]</div>
+<div class="math">
+\[\begin{split}\begin{align}
+w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
+&amp;=
+\begin{cases}
+\frac{w_{mi}}{Z_m}e^{-\alpha_m} &amp; G_m(x_i)=y_i \\
+\frac{w_{mi}}{Z_m}e^{-\alpha_m} &amp; G_m(x_i)\ne y_i
+\end{cases}\\
+\end{align}\end{split}\]</div>
+<p>其中 <span class="math">\(Z_m\)</span> 是规范化因子</p>
+<div class="math">
+\[Z_m = \sum_{i=1}^Nw_{mi}\exp (-\alpha_my_iG_m(x_i))\]</div>
+<ol class="arabic simple" start="6">
+<li>构建基本分类器的线性组合</li>
+</ol>
+<div class="math">
+\[f(x)=\sum_{m=1}^M\alpha_mG_m(x)\]</div>
+<p>得到最终分类器</p>
+<div class="math">
+\[G(x)=sign(f(x))=sign\left(\sum_{m=1}^M\alpha_mG_m(x)\right)\]</div>
+<ul class="simple">
+<li>回归</li>
+</ul>
+<p>区别于分类问题,在回归问题上,则是拟合当前模型与目标之间的残差。总之,取决于损失函数的定义。</p>
+<p>当Adaboost的基分类器为决策树时,则被称为 <strong>提升树</strong> 。此时一般采用CART作为基分类器,所以是二叉树。</p>
+<p>提升树一般会通过调整learning rate来防止过拟合。</p>
+</div>
+<div class="section" id="gbdt">
+<h3>GBDT<a class="headerlink" href="#gbdt" title="Permalink to this headline">¶</a></h3>
+<p>GBDT,即梯度提升树,则是利用当前模型损失函数的负梯度值,作为残差的近似值去拟合:</p>
+<div class="math">
+\[F_m(x) = F_{m-1}(x)+\gamma_mh_m(x)\]</div>
+<div class="math">
+\[\gamma_m = \arg \min_{\gamma}\sum_{i=1}^nL\left(y_i,F_{m-1}(x_i)-\gamma\frac{\partial L(y_i,F_{m-1}(x_i))}{\partial F_{m-1}(x_i)} \right)\]</div>
+<p>加上学习率:</p>
+<div class="math">
+\[F_m(x) = F_{m-1}(x)+\nu \gamma_mh_m(x),\ 0&lt;\nu \leq 1\]</div>
+<p>常用的损失函数如下表:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_gradient.png"><img alt="../_images/ensemble_gradient.png" class="align-center" src="../_images/ensemble_gradient.png" style="width: 500px;" /></a>
+<p>由上表可以看出,在回归问题上采用误差平方和作为损失函数,其负梯度值即为残差,而在分类问题上一般会映射成概率,其常用的损失函数为:</p>
+<div class="math">
+\[L(y_i,f(x_i)) = \log (1+e^{-y_if(x_i)})\]</div>
+<p>在正则化上,除了学习率外,GBDT还可以在每次提升时采用随机无放回的样本采样(行采样)方式,即用随即梯度下降的方式来提高泛化能力。</p>
+</div>
+<div class="section" id="xgboost">
+<h3>XGBoost<a class="headerlink" href="#xgboost" title="Permalink to this headline">¶</a></h3>
+<p>与GBDT不同处在于,XGBoost在目标函数中添加了正则项:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_loss.png"><img alt="../_images/ensemble_xgb_loss.png" class="align-center" src="../_images/ensemble_xgb_loss.png" style="width: 500px;" /></a>
+<p>对于误差损失的部分,XGBoost对损失函数进行了一个泰勒二阶展开:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_1.png"><img alt="../_images/ensemble_xgb_1.png" class="align-center" src="../_images/ensemble_xgb_1.png" style="width: 500px;" /></a>
+<p>注:其中 <span class="math">\(\widehat{y}_i^{(t)},\ y_i\)</span> 都是常数，一些常数项都被加到了 <span class="math">\(const\)</span> 里:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_2.png"><img alt="../_images/ensemble_xgb_2.png" class="align-center" src="../_images/ensemble_xgb_2.png" style="width: 500px;" /></a>
+<p>此时,目标函数就可转化成:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_3.png"><img alt="../_images/ensemble_xgb_3.png" class="align-center" src="../_images/ensemble_xgb_3.png" style="width: 500px;" /></a>
+<p>对于当前树的正则部分,包含了叶结点个数,以及对预测值做了平滑处理,防止过拟合:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_4.png"><img alt="../_images/ensemble_xgb_4.png" class="align-center" src="../_images/ensemble_xgb_4.png" style="width: 500px;" /></a>
+<p>重新定义目标函数,将目标函数整理到每个叶当中:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_5.png"><img alt="../_images/ensemble_xgb_5.png" class="align-center" src="../_images/ensemble_xgb_5.png" style="width: 500px;" /></a>
+<p>通过转换可以得到最小目标函数:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_6.png"><img alt="../_images/ensemble_xgb_6.png" class="align-center" src="../_images/ensemble_xgb_6.png" style="width: 500px;" /></a>
+<p>将特征值排序,遍历每个特征值,寻找最优切分点,是的损失函数的降低增益最大:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_xgb_7.png"><img alt="../_images/ensemble_xgb_7.png" class="align-center" src="../_images/ensemble_xgb_7.png" style="width: 500px;" /></a>
+<p>XGBoost的亮点主要有:</p>
+<ol class="arabic simple">
+<li>目标函数中增加了正则项,考虑了叶结点数量和分值平滑的因素;</li>
+<li>对损失函数进行了泰勒二阶展开,相比GBDT中的一阶导数,多了残差的二阶导数,准确度有所提升;</li>
+<li>支持列抽样;</li>
+<li>支持并行计算。</li>
+</ol>
+</div>
+<div class="section" id="lightgbm">
+<h3>LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this headline">¶</a></h3>
+<p>LightGBM相较于XGBoost,在各方面又有了提升:</p>
+<ol class="arabic simple">
+<li>LightGBM在寻找切分点时,对连续的特征值采用了基于直方图的算法,即将连续值离散化。这样的算法相较于XGBoost的预先计算存储,速度更快,也减少了内存的消耗;</li>
+<li>传统的决策树采用的是level_wise的方式增长,这样往往会分裂一些不必要的结点:</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ensemble_level_wise.png"><img alt="../_images/ensemble_level_wise.png" class="align-center" src="../_images/ensemble_level_wise.png" style="width: 500px;" /></a>
+<p>而leaf_wise只对最值得分裂的结点做切分,在准确度上也有所提升:</p>
+<a class="reference internal image-reference" href="../_images/ensemble_leaf_wise.png"><img alt="../_images/ensemble_leaf_wise.png" class="align-center" src="../_images/ensemble_leaf_wise.png" style="width: 500px;" /></a>
+<ol class="arabic simple" start="3">
+<li>LightGBM在并行计算上也进行了各项优化。</li>
+</ol>
+<p>总之,个人使用后的感受是,准确度与XGBoost差不多,但是速度要快不少。</p>
+</div>
+</div>
+<div class="section" id="stacking">
+<h2>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">¶</a></h2>
+<p>多基分类器的结合策略,在分类问题上常用简单投票法,回归问题常用平均法,也可以根据使用场景进行加权。还有一种常用的学习法叫 <strong>Stacking</strong> ,它是以每个基分类器的预测值作为样本,进行再次学习(如用逻辑回归..)。Stacking在使用时往往配合交叉验证。</p>
+<a class="reference internal image-reference" href="../_images/ensemble_stack.png"><img alt="../_images/ensemble_stack.png" class="align-center" src="../_images/ensemble_stack.png" style="width: 500px;" /></a>
+<p>假设用 <span class="math">\(m\)</span> 个分类器 <span class="math">\(C_m\)</span> 对数据集(n个样本)进行  <span class="math">\(k\)</span>  折交叉堆叠:</p>
+<ol class="arabic simple">
+<li>每次的交叉验证都是用 <span class="math">\(C_m\)</span> 对当前训练集拟合,对验证集的预测值作为输出,可以得到 <span class="math">\(m\)</span> 列, <span class="math">\(n/k\)</span> 行的结果集;</li>
+<li>如此进行 <span class="math">\(k\)</span> 轮训练,将结果纵向堆叠,即可得到一个 <span class="math">\(m\)</span> 列, <span class="math">\(n\)</span> 行的结果集;</li>
+<li>将该结果集作为样本,用一个Meta-Classifer预测,得到最终结果。</li>
+</ol>
+<p>使用Stacking最理想的方式是使用m个相互独立,各有所长,且准确度差异不大的基分类器:使用类似的模型进行堆叠,没有太大效果;而分类器差异大,效果往往还不如最好的那个基分类器。</p>
+</div>
 </div>
 
 
