@@ -200,6 +200,51 @@
 </style>
 <div class="section" id="id1">
 <h1>机器学习的一些经验和建议<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>评价模型时plot一下学习曲线,即可知道当前模型的状态(欠拟合?过拟合?完美?);</li>
+<li>在模型评价时常见的问题:</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/advice_2.png"><img alt="../_images/advice_2.png" class="align-center" src="../_images/advice_2.png" style="width: 500px;" /></a>
+<p>解决方法:</p>
+<ul>
+<li><p class="first">bias:模型欠拟合</p>
+<blockquote>
+<div><ul class="simple">
+<li>提升模型拟合性能;</li>
+<li>进一步特征工程,或增加更具相关性的特征数据;</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">variance:模型过拟合</p>
+<blockquote>
+<div><ul class="simple">
+<li>增加正则化权重;</li>
+<li>增大样本量;</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">data mismatch:训练集和测试集样本分布不同</p>
+<blockquote>
+<div><ul class="simple">
+<li>调整训练集和测试集的样本,可以让训练集包含测试集样本分布的数据。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li>训练集,验证集和测试集必须来自同一分布,否则对模型准确度的判断会有很大的影响;</li>
+<li>任何影响到模型的数据,其预测出来的结果都无法真正代表模型的准确度。衡量模型的准确度必须使用那些在模型生成调优过程中从未使用过的数据集;</li>
+<li>验证集的样本容量通常在1000～10000;</li>
+<li>对于多评价准则问题,需要制定一个最优与满足平衡的策略。例如,一般来说准确率越高的的模型,所需要的计算时间越长。当需要同时考虑时间成本和准确度时,可以先设定一个时间上可以接受的最大值,在这个最大值范围内,选取准确率最高的模型;</li>
+<li>对训练结果进行人工误差分析,人工寻找被误分类的样本特征,可能会有新的启发;</li>
+<li>建模是个迭代的过程,有了大致的方向,就先建一个基模型,根据误差分析来改进模型。宁可要快速而不完美的开始,也不要过度思考。这也是为什么正确划分验证集和测试集,以及做误差分析的重要性;</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/advice_1.png"><img alt="../_images/advice_1.png" class="align-center" src="../_images/advice_1.png" style="width: 500px;" /></a>
+<ol class="arabic simple" start="9">
+<li>在没有足够的把握下和必需的条件下,最好不要手动离散化连续特征值,会影响模型准确度;</li>
+<li>特征决定了模型准确度的上限,而好的算法可以无限逼近这个上限。这也是很多时候调参的效果不及一个好特征的原因。一堆与目标值不相关的数据,再怎么调参优化也是没用的;</li>
+</ol>
+<p>(to be continued…)</p>
 </div>
 
 
