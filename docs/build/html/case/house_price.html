@@ -1,0 +1,2765 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>房价预测 &mdash; hidejxz-blog 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="案例总结" href="index.html"/>
+        <link rel="next" title="mnist手写数字识别" href="digit_recognizer.html"/>
+        <link rel="prev" title="Titanic存活预测" href="titanic.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> hidejxz-blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../theory/index.html">理论部分</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">案例总结</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="titanic.html">Titanic存活预测</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">房价预测</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.-概述">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#2.-数据分析">2. 数据分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.-数据前处理">3. 数据前处理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#缺失值">缺失值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#特征工程">特征工程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#其他前处理">其他前处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4.-baseline建模及评估">4. baseline建模及评估</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Lasso">Lasso</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Ridge">Ridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SVM">SVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LinearSVM">LinearSVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lightGBM">lightGBM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Random-Forest">Random Forest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#模型效果对比">模型效果对比</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#5.-模型融合及评估">5. 模型融合及评估</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.-预测及提交">6. 预测及提交</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.-总结">7. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="digit_recognizer.html">mnist手写数字识别</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../others/index.html">其他</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hidejxz-blog</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">案例总结</a> &raquo;</li>
+        
+      <li>房价预测</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/case/house_price.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="房价预测">
+<h1>房价预测<a class="headerlink" href="#房价预测" title="Permalink to this headline">¶</a></h1>
+<p><strong>目录</strong></p>
+<ol class="arabic simple">
+<li><a class="reference external" href="#概述">概述</a></li>
+<li><a class="reference external" href="#数据分析">数据分析</a></li>
+<li><a class="reference external" href="#数据前处理">数据前处理</a></li>
+<li><a class="reference external" href="#baseline建模及评估">baseline建模及评估</a></li>
+<li><a class="reference external" href="#模型融合及评估">模型融合及评估</a></li>
+<li><a class="reference external" href="#预测及提交">预测及提交</a></li>
+<li><a class="reference external" href="#总结">总结</a></li>
+</ol>
+<div class="section" id="1.-概述">
+<h2>1. 概述<a class="headerlink" href="#1.-概述" title="Permalink to this headline">¶</a></h2>
+<p>房价预测是机器学习中最经典的回归赛题,根据给定特征预测房价,最后根据RMSE排名。</p>
+</div>
+<div class="section" id="2.-数据分析">
+<h2>2. 数据分析<a class="headerlink" href="#2.-数据分析" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">],</span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="s1">&#39;test&#39;</span><span class="p">],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1stFlrSF</th>
+      <th>2ndFlrSF</th>
+      <th>3SsnPorch</th>
+      <th>Alley</th>
+      <th>BedroomAbvGr</th>
+      <th>BldgType</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinSF2</th>
+      <th>...</th>
+      <th>SaleType</th>
+      <th>ScreenPorch</th>
+      <th>Street</th>
+      <th>TotRmsAbvGrd</th>
+      <th>TotalBsmtSF</th>
+      <th>Utilities</th>
+      <th>WoodDeckSF</th>
+      <th>YearBuilt</th>
+      <th>YearRemodAdd</th>
+      <th>YrSold</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>856</td>
+      <td>854</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>1Fam</td>
+      <td>TA</td>
+      <td>No</td>
+      <td>706.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>WD</td>
+      <td>0</td>
+      <td>Pave</td>
+      <td>8</td>
+      <td>856.0</td>
+      <td>AllPub</td>
+      <td>0</td>
+      <td>2003</td>
+      <td>2003</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1262</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>1Fam</td>
+      <td>TA</td>
+      <td>Gd</td>
+      <td>978.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>WD</td>
+      <td>0</td>
+      <td>Pave</td>
+      <td>6</td>
+      <td>1262.0</td>
+      <td>AllPub</td>
+      <td>298</td>
+      <td>1976</td>
+      <td>1976</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>920</td>
+      <td>866</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>1Fam</td>
+      <td>TA</td>
+      <td>Mn</td>
+      <td>486.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>WD</td>
+      <td>0</td>
+      <td>Pave</td>
+      <td>6</td>
+      <td>920.0</td>
+      <td>AllPub</td>
+      <td>0</td>
+      <td>2001</td>
+      <td>2002</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>961</td>
+      <td>756</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>1Fam</td>
+      <td>Gd</td>
+      <td>No</td>
+      <td>216.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>WD</td>
+      <td>0</td>
+      <td>Pave</td>
+      <td>7</td>
+      <td>756.0</td>
+      <td>AllPub</td>
+      <td>0</td>
+      <td>1915</td>
+      <td>1970</td>
+      <td>2006</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1145</td>
+      <td>1053</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>4</td>
+      <td>1Fam</td>
+      <td>TA</td>
+      <td>Av</td>
+      <td>655.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>WD</td>
+      <td>0</td>
+      <td>Pave</td>
+      <td>9</td>
+      <td>1145.0</td>
+      <td>AllPub</td>
+      <td>192</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2008</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 81 columns</p>
+</div></div>
+</div>
+<p>首先看一下房价的分布</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;orig&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_8_0.png" src="../_images/case_house_price_8_0.png" />
+</div>
+</div>
+<p>原数据分布明显偏右,对数处理后呈正态分布。评分标准也是需要对预测值取对数的。</p>
+<p>分别看一下离散特征和连续特征与目标变量的关系。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">numeric_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">!=</span><span class="s2">&quot;object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">categorical_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">==</span><span class="s2">&quot;object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1">#number of variables for heatmap</span>
+<span class="n">corrmat</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">corrmat</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">)[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">cubehelix_palette</span><span class="p">(</span><span class="n">light</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">hm</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> \
+                 <span class="n">yticklabels</span><span class="o">=</span><span class="n">cols</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">cols</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_12_0.png" src="../_images/case_house_price_12_0.png" />
+</div>
+</div>
+<p>取与房价相关系数最高的9个连续属性，发现OverallQual整体质量和GrLivArea地面可居住面积的系数都比较高。</p>
+<p>各连续特征与房价的关系:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">numeric_feats</span> <span class="o">=</span> <span class="n">numeric_feats</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;SalePrice&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">jointplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span><span class="n">value_vars</span><span class="o">=</span><span class="n">numeric_feats</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s1">&#39;variable&#39;</span><span class="p">,</span><span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">jointplot</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="s2">&quot;SalePrice&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_15_0.png" src="../_images/case_house_price_15_0.png" />
+</div>
+</div>
+<p>各离散特征与房价的关系:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">train</span><span class="p">[</span><span class="n">categorical_feats</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">categorical_feats</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;Missing&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span><span class="n">value_vars</span><span class="o">=</span><span class="n">categorical_feats</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s1">&#39;variable&#39;</span><span class="p">,</span><span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">boxplot</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="s2">&quot;SalePrice&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_17_0.png" src="../_images/case_house_price_17_0.png" />
+</div>
+</div>
+<p>缺失值的情况:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">total</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="n">missing_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">,</span><span class="n">Type</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="s1">&#39;Percent&#39;</span><span class="p">,</span><span class="s1">&#39;Type&#39;</span><span class="p">])</span>
+<span class="n">missing_data</span> <span class="o">=</span> <span class="n">missing_data</span><span class="p">[</span><span class="n">missing_data</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Percent&#39;</span><span class="p">)</span>
+<span class="n">missing_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total</th>
+      <th>Percent</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>PoolQC</th>
+      <td>2909</td>
+      <td>0.996574</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>MiscFeature</th>
+      <td>2814</td>
+      <td>0.964029</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Alley</th>
+      <td>2721</td>
+      <td>0.932169</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Fence</th>
+      <td>2348</td>
+      <td>0.804385</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>FireplaceQu</th>
+      <td>1420</td>
+      <td>0.486468</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>LotFrontage</th>
+      <td>486</td>
+      <td>0.166495</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>GarageFinish</th>
+      <td>159</td>
+      <td>0.054471</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>GarageQual</th>
+      <td>159</td>
+      <td>0.054471</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>GarageYrBlt</th>
+      <td>159</td>
+      <td>0.054471</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>GarageCond</th>
+      <td>159</td>
+      <td>0.054471</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>GarageType</th>
+      <td>157</td>
+      <td>0.053786</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtCond</th>
+      <td>82</td>
+      <td>0.028092</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtExposure</th>
+      <td>82</td>
+      <td>0.028092</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtQual</th>
+      <td>81</td>
+      <td>0.027749</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtFinType2</th>
+      <td>80</td>
+      <td>0.027407</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtFinType1</th>
+      <td>79</td>
+      <td>0.027064</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>MasVnrType</th>
+      <td>24</td>
+      <td>0.008222</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>MasVnrArea</th>
+      <td>23</td>
+      <td>0.007879</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>MSZoning</th>
+      <td>4</td>
+      <td>0.001370</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Utilities</th>
+      <td>2</td>
+      <td>0.000685</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Functional</th>
+      <td>2</td>
+      <td>0.000685</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtHalfBath</th>
+      <td>2</td>
+      <td>0.000685</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>BsmtFullBath</th>
+      <td>2</td>
+      <td>0.000685</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>GarageCars</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>Exterior2nd</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>KitchenQual</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Exterior1st</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>Electrical</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>BsmtUnfSF</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>BsmtFinSF2</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>BsmtFinSF1</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>SaleType</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>TotalBsmtSF</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>GarageArea</th>
+      <td>1</td>
+      <td>0.000343</td>
+      <td>float64</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>特征变量比较多,接近80个。可以把它们大致分为:
+<em>影响销售的一些总体因素,土地,设施及周边环境,房屋整体情况,房屋内部情况</em>
+这几个方面。在数据清洗及特征处理的过程中,边分析边处理。</p>
+</div>
+<div class="section" id="3.-数据前处理">
+<h2>3. 数据前处理<a class="headerlink" href="#3.-数据前处理" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="缺失值">
+<h3>缺失值<a class="headerlink" href="#缺失值" title="Permalink to this headline">¶</a></h3>
+<p>缺失值分为两种情况: 1.缺失值表示没有该特征; 2.缺失值确实是数据缺失。
+所以得视实际情况来分别处理。</p>
+<ul class="simple">
+<li>泳池</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolArea&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">,</span><span class="s1">&#39;PoolArea&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PoolQC</th>
+      <th>PoolArea</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2420</th>
+      <td>NaN</td>
+      <td>368</td>
+    </tr>
+    <tr>
+      <th>2503</th>
+      <td>NaN</td>
+      <td>444</td>
+    </tr>
+    <tr>
+      <th>2599</th>
+      <td>NaN</td>
+      <td>561</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolArea&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Gd&#39;</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;None&#39;</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li>车库</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span>\
+             <span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">,</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">,</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">,</span><span class="s1">&#39;GarageCars&#39;</span><span class="p">,</span><span class="s1">&#39;GarageArea&#39;</span><span class="p">,</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">,</span><span class="s1">&#39;GarageCond&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>GarageType</th>
+      <th>GarageYrBlt</th>
+      <th>GarageFinish</th>
+      <th>GarageCars</th>
+      <th>GarageArea</th>
+      <th>GarageQual</th>
+      <th>GarageCond</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2126</th>
+      <td>Detchd</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>360.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2576</th>
+      <td>Detchd</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span> <span class="o">=</span> \
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TA&#39;</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;GarageCond&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TA&#39;</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Unf&#39;</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageCars&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageArea&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageArea&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">GarageArea</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li>地下室</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()),</span>\
+              <span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
+                                            <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2120</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span>\
+              <span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
+                                            <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2040</th>
+      <td>Gd</td>
+      <td>NaN</td>
+      <td>Mn</td>
+      <td>GLQ</td>
+      <td>1044.0</td>
+      <td>Rec</td>
+      <td>382.0</td>
+      <td>0.0</td>
+      <td>1426.0</td>
+    </tr>
+    <tr>
+      <th>2185</th>
+      <td>TA</td>
+      <td>NaN</td>
+      <td>No</td>
+      <td>BLQ</td>
+      <td>1033.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>94.0</td>
+      <td>1127.0</td>
+    </tr>
+    <tr>
+      <th>2524</th>
+      <td>TA</td>
+      <td>NaN</td>
+      <td>Av</td>
+      <td>ALQ</td>
+      <td>755.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>240.0</td>
+      <td>995.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;TA&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span>\
+              <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
+                                            <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>948</th>
+      <td>949</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>NaN</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>936.0</td>
+      <td>936.0</td>
+    </tr>
+    <tr>
+      <th>1487</th>
+      <td>1488</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>NaN</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>1595.0</td>
+      <td>1595.0</td>
+    </tr>
+    <tr>
+      <th>2348</th>
+      <td>2349</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>NaN</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>725.0</td>
+      <td>725.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;No&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span>\
+              <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
+                                            <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2217</th>
+      <td>2218</td>
+      <td>NaN</td>
+      <td>Fa</td>
+      <td>No</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>173.0</td>
+      <td>173.0</td>
+    </tr>
+    <tr>
+      <th>2218</th>
+      <td>2219</td>
+      <td>NaN</td>
+      <td>TA</td>
+      <td>No</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>Unf</td>
+      <td>0.0</td>
+      <td>356.0</td>
+      <td>356.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TA&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span>\
+              <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
+                                            <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2120</th>
+      <td>2121</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span>\
+              <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
+                                            <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>332</th>
+      <td>333</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>No</td>
+      <td>GLQ</td>
+      <td>1124.0</td>
+      <td>NaN</td>
+      <td>479.0</td>
+      <td>1603.0</td>
+      <td>3206.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Rec&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li>其他数据</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">,</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MasVnrArea</th>
+      <th>MasVnrType</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2610</th>
+      <td>198.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;BrkFace&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">MSZoning</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MSZoning&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">SaleType</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;SaleType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">Functional</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Functional&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">Electrical</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Electrical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">KitchenQual</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;KitchenQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">KitchenQual</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Exterior1st&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">KitchenQual</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Exterior2nd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Utilities&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;CentralAir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;CentralAir&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MiscFeature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Alley&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Fence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;FireplaceQu&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;LotFrontage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;LotFrontage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFullBath&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtHalfBath&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>最后检查一下缺失情况</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">total</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="n">missing_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">,</span><span class="n">Type</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="s1">&#39;Percent&#39;</span><span class="p">,</span><span class="s1">&#39;Type&#39;</span><span class="p">])</span>
+<span class="n">missing_data</span> <span class="o">=</span> <span class="n">missing_data</span><span class="p">[</span><span class="n">missing_data</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Percent&#39;</span><span class="p">)</span>
+<span class="n">missing_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total</th>
+      <th>Percent</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="特征工程">
+<h3>特征工程<a class="headerlink" href="#特征工程" title="Permalink to this headline">¶</a></h3>
+<p>一些离散变量,其含义是带有序列关系的,对于这类特征可以按需赋予连续值,这样也对后期的回归模型有利。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">qual_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Po&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Fa&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;TA&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Gd&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Ex&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterCond&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;HeatingQC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;HeatingQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;KitchenQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;KitchenQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;FireplaceQu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;FireplaceQu&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageCond&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Mn&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Av&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Gd&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Functional&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Functional&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Sal&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Sev&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Maj2&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Maj1&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+     <span class="s1">&#39;Mod&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Min2&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Min1&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;Typ&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">})</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Unf&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RFn&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Fin&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Fence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;Fence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;MnWw&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;GdWo&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;MnPrv&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;GdPrv&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>针对地下室的情况,部分样本含有多种评价情况。因此考虑将其整合为一个变量，并为每种情况打分,最后合并为一个总分值。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">df1</span><span class="o">=</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">]]</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF&#39;</span><span class="p">]</span>
+<span class="n">df2</span><span class="o">=</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">]]</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType&#39;</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;BsmtFinType&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;BsmtFinSF&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="s1">&#39;Unf&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_ALQ&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType_BLQ&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType_GLQ&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType_LwQ&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType_Rec&#39;</span><span class="p">])</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_Unf&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_ALQ&#39;</span><span class="p">]</span><span class="o">-</span>\
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_BLQ&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_GLQ&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_LwQ&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_Rec&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinScore&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_Unf&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_LwQ&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_Rec&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span>\
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_BLQ&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_ALQ&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinType_GLQ&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span>
+
+<span class="c1">#df[&#39;BsmtFinType_ALQ&#39;]=df[&#39;BsmtFinType_ALQ&#39;]/df[&#39;TotalBsmtSF&#39;]</span>
+<span class="c1">#df[&#39;BsmtFinType_BLQ&#39;]=df[&#39;BsmtFinType_BLQ&#39;]/df[&#39;TotalBsmtSF&#39;]</span>
+<span class="c1">#df[&#39;BsmtFinType_GLQ&#39;]=df[&#39;BsmtFinType_GLQ&#39;]/df[&#39;TotalBsmtSF&#39;]</span>
+<span class="c1">#df[&#39;BsmtFinType_LwQ&#39;]=df[&#39;BsmtFinType_LwQ&#39;]/df[&#39;TotalBsmtSF&#39;]</span>
+<span class="c1">#df[&#39;BsmtFinType_Rec&#39;]=df[&#39;BsmtFinType_Rec&#39;]/df[&#39;TotalBsmtSF&#39;]</span>
+<span class="c1">#df[&#39;BsmtFinType_Unf&#39;]=df[&#39;BsmtFinType_Unf&#39;]/df[&#39;TotalBsmtSF&#39;]</span>
+<span class="c1">#df.fillna(0,inplace = True)</span>
+
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">all_data</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;BsmtFinScore&#39;</span><span class="p">]],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>合并Condition</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Condition1&#39;</span><span class="p">,</span><span class="s1">&#39;Condition2&#39;</span><span class="p">]])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_Artery&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_Artery&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_Artery&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_Feedr&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_Feedr&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_Feedr&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_Norm&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_Norm&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_Norm&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_PosA&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_PosA&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_PosA&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_PosN&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_PosN&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_PosN&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_RRAe&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_RRAe&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_RRAe&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_RRAn&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_RRAn&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_RRAn&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_RRNe&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_RRNe&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_RRNn&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_RRNn&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_RRNn&#39;</span><span class="p">]</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Condition_Artery&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_Feedr&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_Norm&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_PosA&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_PosN&#39;</span><span class="p">,</span>\
+      <span class="s1">&#39;Condition_RRAe&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_RRAn&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_RRNe&#39;</span><span class="p">,</span><span class="s1">&#39;Condition_RRNn&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Condition1&#39;</span><span class="p">,</span><span class="s1">&#39;Condition2&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">all_data</span><span class="p">,</span><span class="n">df</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>合并Exterior</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Exterior1st&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior2nd&#39;</span><span class="p">]])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_AsbShng&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_AsbShng&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_AsbShng&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_AsphShn&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_AsphShn&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_AsphShn&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_BrkComm&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_BrkComm&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Brk Cmn&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_BrkFace&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_BrkFace&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_BrkFace&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_CBlock&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_CBlock&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_CBlock&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_CemntBd&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_CemntBd&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_CmentBd&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_HdBoard&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_HdBoard&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_HdBoard&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_ImStucc&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_ImStucc&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_ImStucc&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_MetalSd&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_MetalSd&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_MetalSd&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_Other&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Other&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_Plywood&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_Plywood&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Plywood&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_Stone&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_Stone&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Stone&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_Stucco&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_Stucco&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Stucco&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_TA&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_TA&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_TA&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_VinylSd&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_VinylSd&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_VinylSd&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_Wd Sdng&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_Wd Sdng&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Wd Sdng&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_WdShing&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_WdShing&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_Wd Shng&#39;</span><span class="p">]</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Exterior_AsbShng&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_AsphShn&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_BrkComm&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_BrkFace&#39;</span><span class="p">,</span>\
+       <span class="s1">&#39;Exterior_CBlock&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_CemntBd&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_HdBoard&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_ImStucc&#39;</span><span class="p">,</span>\
+       <span class="s1">&#39;Exterior_MetalSd&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_Other&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_Plywood&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_Stone&#39;</span><span class="p">,</span>\
+       <span class="s1">&#39;Exterior_Stucco&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_TA&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_VinylSd&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_Wd Sdng&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior_WdShing&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Exterior1st&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior2nd&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">all_data</span><span class="p">,</span><span class="n">df</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>对年份相关的数据,统一转换成距离销售年的年数</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YrSold&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearRemodAdd&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YrSold&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearRemodAdd&#39;</span><span class="p">]</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearRemodAdd&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;YearRemodAdd&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YrSold&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2000</span><span class="p">,</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<p>将销售年月等转换成类别</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">MoSold</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">MoSold</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">YrSold</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">YrSold</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">MSSubClass</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">MSSubClass</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="其他前处理">
+<h3>其他前处理<a class="headerlink" href="#其他前处理" title="Permalink to this headline">¶</a></h3>
+<p>删除异常值</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;OverallQual&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">10</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">200000</span><span class="p">),[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">,</span><span class="s1">&#39;OverallQual&#39;</span><span class="p">,</span><span class="s1">&#39;GrLivArea&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">,</span><span class="s1">&#39;1stFlrSF&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SalePrice</th>
+      <th>OverallQual</th>
+      <th>GrLivArea</th>
+      <th>TotalBsmtSF</th>
+      <th>1stFlrSF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>523</th>
+      <td>184750.0</td>
+      <td>10</td>
+      <td>4676</td>
+      <td>3138.0</td>
+      <td>3138</td>
+    </tr>
+    <tr>
+      <th>1298</th>
+      <td>160000.0</td>
+      <td>10</td>
+      <td>5642</td>
+      <td>6110.0</td>
+      <td>4692</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="mi">523</span><span class="p">,</span> <span class="mi">1298</span><span class="p">],</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Id&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>对右偏连续特征做对数处理</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">numeric_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">!=</span><span class="s2">&quot;object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+<span class="n">skewed_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="n">numeric_feats</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">()))</span> <span class="c1">#compute skewness</span>
+<span class="n">cnt_feats</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="n">numeric_feats</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">())))</span>
+<span class="n">max_feats</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="n">numeric_feats</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">()))</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">skewed_feats</span><span class="p">,</span><span class="n">cnt_feats</span><span class="p">,</span><span class="n">max_feats</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skew&#39;</span><span class="p">,</span><span class="s1">&#39;cnt&#39;</span><span class="p">,</span><span class="s1">&#39;max&#39;</span><span class="p">]</span>
+<span class="c1">#df.drop([&#39;SalePrice&#39;],inplace = True)</span>
+<span class="n">skewed_feats</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;skew&#39;</span><span class="p">])</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cnt&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">30</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span>
+
+<span class="n">all_data</span><span class="p">[</span><span class="n">skewed_feats</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="n">skewed_feats</span><span class="p">])</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>对离散变量二值化处理</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>划分训练集和测试集,并对所有数据进行[0,1]标准化</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]))</span>
+<span class="n">y_train</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;SalePrice&#39;</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">MinMaxScaler</span>
+<span class="n">all_data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">all_data</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="n">all_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">x_train</span><span class="o">=</span><span class="n">all_data</span><span class="p">[:</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">x_test</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<p>本赛题数据清洗以及特征工程的工作量很大,很多特征工程还需要基于对美国房市的了解。</p>
+</div>
+</div>
+<div class="section" id="4.-baseline建模及评估">
+<h2>4. baseline建模及评估<a class="headerlink" href="#4.-baseline建模及评估" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">mean_rmse</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">mean_time</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">learning_curve</span>
+<span class="k">def</span> <span class="nf">plot_learning_curve</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ylim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">ylim</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Training examples&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Score&quot;</span><span class="p">)</span>
+    <span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">train_sizes</span><span class="o">=</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span>
+    <span class="n">train_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">train_scores</span><span class="p">))</span>
+    <span class="n">test_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">test_scores</span><span class="p">))</span>
+    <span class="n">train_scores_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">train_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">train_scores_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">train_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">test_scores_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">test_scores_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores_mean</span> <span class="o">-</span> <span class="n">train_scores_std</span><span class="p">,</span>
+                     <span class="n">train_scores_mean</span> <span class="o">+</span> <span class="n">train_scores_std</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_scores_mean</span> <span class="o">-</span> <span class="n">test_scores_std</span><span class="p">,</span>
+                     <span class="n">test_scores_mean</span> <span class="o">+</span> <span class="n">test_scores_std</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores_mean</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training score&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_scores_mean</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cross-validation score&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="k">def</span> <span class="nf">kfold_plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">ytrain</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">rmse_scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">exe_time</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">ytrain</span><span class="p">):</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">ytrain</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">ytrain</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">begin_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">end_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">exe_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">end_t</span><span class="o">-</span><span class="n">begin_t</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+        <span class="n">rmse_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">predictions</span><span class="p">)))</span>
+
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;mean rmse_scores: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmse_scores</span><span class="p">))</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;mean model process time: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">exe_time</span><span class="p">),</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;Learning Curves&quot;</span><span class="p">,</span><span class="n">train</span><span class="p">,</span> <span class="n">ytrain</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>  <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmse_scores</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">exe_time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">Ridge</span><span class="p">,</span><span class="n">Lasso</span><span class="p">,</span><span class="n">LinearRegression</span>
+<span class="n">ridge_model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">()</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ridge_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.117558639757
+mean model process time:  0.0106 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_77_1.png" src="../_images/case_house_price_77_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">lasso_model</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">lasso_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.117304796839
+mean model process time:  0.0234 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_78_1.png" src="../_images/case_house_price_78_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[47]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>233
+</pre></div>
+</div>
+</div>
+<p>使用Ridge和Lasso都有过拟合的现象,Lasso因为带有特征选择,所以比Ridge稍好一些。考虑到一共有233个特征,对特征做一定的筛选。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">d</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;coef&#39;</span><span class="p">:</span><span class="nb">abs</span><span class="p">(</span><span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">),</span>\
+    <span class="s1">&#39;feature&#39;</span><span class="p">:</span><span class="n">x_train</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+<span class="p">}</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span><span class="s1">&#39;coef&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;coef&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fs_l1</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span><span class="o">.</span><span class="n">feature</span><span class="p">)</span><span class="c1">#取前50个特征</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Lasso">
+<h3>Lasso<a class="headerlink" href="#Lasso" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">lasso_model</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">lasso_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.11307331651
+mean model process time:  0.003 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_83_1.png" src="../_images/case_house_price_83_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Ridge">
+<h3>Ridge<a class="headerlink" href="#Ridge" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">ridge_model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ridge_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.11301541899
+mean model process time:  0.0022 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_85_1.png" src="../_images/case_house_price_85_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="SVM">
+<h3>SVM<a class="headerlink" href="#SVM" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVR</span>
+<span class="n">svm_model</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;svm&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;svm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">svm_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.112000740221
+mean model process time:  0.0584 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_87_1.png" src="../_images/case_house_price_87_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="LinearSVM">
+<h3>LinearSVM<a class="headerlink" href="#LinearSVM" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">LinearSVR</span>
+<span class="n">linearsvm_model</span> <span class="o">=</span> <span class="n">LinearSVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;linearsvm&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;linearsvm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">linearsvm_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.114572170102
+mean model process time:  0.043 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_89_1.png" src="../_images/case_house_price_89_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="lightGBM">
+<h3>lightGBM<a class="headerlink" href="#lightGBM" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
+<span class="n">lgb_model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMRegressor</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">num_leaves</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>\
+ <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">d</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span><span class="n">lgb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span>\
+    <span class="s1">&#39;feature&#39;</span><span class="p">:</span><span class="n">x_train</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+<span class="p">}</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span><span class="s1">&#39;split&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;split&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fs_tree</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span><span class="o">.</span><span class="n">feature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
+<span class="n">lgb_model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMRegressor</span><span class="p">(</span><span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">num_leaves</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>\
+ <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;LGB&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;LGB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_tree</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">lgb_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.118971897472
+mean model process time:  0.3914 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_92_1.png" src="../_images/case_house_price_92_1.png" />
+</div>
+</div>
+<p>用lightgbm调试了很久,一直存在过拟合的现象</p>
+</div>
+<div class="section" id="Random-Forest">
+<h3>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+<span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">()</span>
+<span class="n">d</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span><span class="n">rf_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span>\
+    <span class="s1">&#39;feature&#39;</span><span class="p">:</span><span class="n">x_train</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+<span class="p">}</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span><span class="s1">&#39;split&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;split&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fs_rf</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span><span class="o">.</span><span class="n">feature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+<span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_rf</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">rf_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.17299919488
+mean model process time:  0.039 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_96_1.png" src="../_images/case_house_price_96_1.png" />
+</div>
+</div>
+<p>随机森林效果也不理想</p>
+</div>
+<div class="section" id="模型效果对比">
+<h3>模型效果对比<a class="headerlink" href="#模型效果对比" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">df_eval</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_rmse</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                  <span class="s2">&quot;rmse&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_rmse</span><span class="o">.</span><span class="n">values</span><span class="p">())}</span>
+<span class="n">df_eval</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_eval</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span><span class="s2">&quot;rmse&quot;</span><span class="p">])</span>
+<span class="n">df_eval</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[58]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model</th>
+      <th>rmse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>svm</td>
+      <td>0.112001</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>ridge</td>
+      <td>0.113015</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>lasso</td>
+      <td>0.113073</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>linearsvm</td>
+      <td>0.114572</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>LGB</td>
+      <td>0.118972</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>RF</td>
+      <td>0.172999</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>感觉对于回归问题,似乎一些基于距离计算的算法会更好用一些。用树做回归还得继续研究。</p>
+</div>
+</div>
+<div class="section" id="5.-模型融合及评估">
+<h2>5. 模型融合及评估<a class="headerlink" href="#5.-模型融合及评估" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">mlxtend.regressor</span> <span class="k">import</span> <span class="n">StackingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">srgs_model</span> <span class="o">=</span> <span class="n">StackingRegressor</span><span class="p">(</span><span class="n">regressors</span><span class="o">=</span><span class="p">[</span><span class="n">lasso_model</span><span class="p">,</span> <span class="n">ridge_model</span><span class="p">,</span><span class="n">linearsvm_model</span><span class="p">,</span> <span class="n">svm_model</span><span class="p">],</span>\
+                               <span class="n">meta_regressor</span><span class="o">=</span><span class="n">LinearRegression</span><span class="p">()</span>
+                              <span class="p">)</span>
+<span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;stack&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;stack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">srgs_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mean rmse_scores:  0.111810666508
+mean model process time:  0.121 s
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_house_price_102_1.png" src="../_images/case_house_price_102_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="6.-预测及提交">
+<h2>6. 预测及提交<a class="headerlink" href="#6.-预测及提交" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">srgs_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">srgs_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">])</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">],</span><span class="n">obj</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;result_stack.csv&#39;</span><span class="p">,</span><span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>提交后在Leaderboard上分数0.12842,看来模型有一定的过拟合</p>
+</div>
+<div class="section" id="7.-总结">
+<h2>7. 总结<a class="headerlink" href="#7.-总结" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>本赛题的重点其实是在特征工程上,一些类别特征如MSSubClass,美国房市的淡旺季等等,有相关行业背景知识,其实可以提炼出更多的连续属性,对回归更有利,本次最后的提交分数不高,主要也是此原因;</li>
+<li>树模型做回归问题仍然值得更进一步学习。</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="digit_recognizer.html" class="btn btn-neutral float-right" title="mnist手写数字识别" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="titanic.html" class="btn btn-neutral" title="Titanic存活预测" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, hidejxz.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

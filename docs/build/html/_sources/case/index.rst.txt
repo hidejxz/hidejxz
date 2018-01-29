@@ -5,6 +5,6 @@
    :maxdepth: 2
    
    titanic.ipynb
-   house_prices
+   house_price.ipynb
    digit_recognizer
 
