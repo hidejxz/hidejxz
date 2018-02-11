@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>理论部分 &mdash; hidejxz-blog 1.0.0 documentation</title>
+  <title>k均值(kmeans) &mdash; hidejxz-blog 1.0.0 documentation</title>
   
 
   
@@ -36,8 +36,9 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
-        <link rel="next" title="线性回归与逻辑回归" href="linear_model.html"/>
-        <link rel="prev" title="Machine Learning" href="../index.html"/> 
+        <link rel="up" title="机器学习" href="index.html"/>
+        <link rel="next" title="深度学习" href="../deep_learning/index.html"/>
+        <link rel="prev" title="模型评估" href="model_evaluation.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -91,19 +92,18 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">理论部分</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">机器学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
 <li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pca.html">PCA降维</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">k均值(kmeans)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../deep_learning/index.html">深度学习</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../case/index.html">案例总结</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others/index.html">其他</a></li>
 </ul>
@@ -150,13 +150,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>理论部分</li>
+          <li><a href="index.html">机器学习</a> &raquo;</li>
+        
+      <li>k均值(kmeans)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/theory/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/machine_learning/kmeans.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -203,50 +205,8 @@
     margin-right: 4px;  /* make room for the exclamation icon */
 }
 </style>
-<div class="section" id="id1">
-<h1>理论部分<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html#id2">线性回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html#id3">逻辑回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html#id4">正则化</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="decision_trees.html">决策树</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id2">基本流程</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id3">特征划分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id4">剪枝</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id5">优缺点</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id6">其他补充</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l1"><a class="reference internal" href="svm.html">支持向量机(svm)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id1">线性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id2">非线性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id3">求解</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id4">分类与回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id5">逻辑回归与SVM对比</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="neural_network.html">神经网络</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ensemble_learning.html">集成学习</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html#bagging">Bagging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html#boosting">Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html#stacking">Stacking</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">模型评估</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html#classification">Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html#regression">Regression</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pca.html">PCA降维</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
-</ul>
-</div>
+<div class="section" id="k-kmeans">
+<h1>k均值(kmeans)<a class="headerlink" href="#k-kmeans" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -259,10 +219,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="linear_model.html" class="btn btn-neutral float-right" title="线性回归与逻辑回归" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../deep_learning/index.html" class="btn btn-neutral float-right" title="深度学习" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="Machine Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="model_evaluation.html" class="btn btn-neutral" title="模型评估" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>理论部分 &mdash; hidejxz-blog 1.0.0 documentation</title>
+  <title>神经网络(Neural Network) &mdash; hidejxz-blog 1.0.0 documentation</title>
   
 
   
@@ -36,8 +36,9 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
-        <link rel="next" title="线性回归与逻辑回归" href="linear_model.html"/>
-        <link rel="prev" title="Machine Learning" href="../index.html"/> 
+        <link rel="up" title="深度学习" href="index.html"/>
+        <link rel="next" title="卷积神经网络(CNN)" href="cnn.html"/>
+        <link rel="prev" title="深度学习" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -91,17 +92,15 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">理论部分</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
-<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pca.html">PCA降维</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">机器学习</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">深度学习</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">神经网络(Neural Network)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">神经网络的结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">要点</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cnn.html">卷积神经网络(CNN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnn.html">序列模型(RNN)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../case/index.html">案例总结</a></li>
@@ -150,13 +149,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>理论部分</li>
+          <li><a href="index.html">深度学习</a> &raquo;</li>
+        
+      <li>神经网络(Neural Network)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/theory/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/deep_learning/neural_network.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -203,49 +204,30 @@
     margin-right: 4px;  /* make room for the exclamation icon */
 }
 </style>
+<div class="section" id="neural-network">
+<h1>神经网络(Neural Network)<a class="headerlink" href="#neural-network" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h1>理论部分<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html#id2">线性回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html#id3">逻辑回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linear_model.html#id4">正则化</a></li>
+<h2>神经网络的结构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>一张图解释神经网络的结构:</p>
+<a class="reference internal image-reference" href="../_images/nn_1.png"><img alt="../_images/nn_1.png" class="align-center" src="../_images/nn_1.png" style="width: 800px;" /></a>
+<p>神经网络可以看作是逻辑回归的一个堆叠形式.逻辑回归本身就可以看作是一个单一的神经元,而神经网络是讲多个神经元组合到一起,多个神经元构成一个层,一个神经网络可以由多个层构成,每一层的输入依次是上一层的输出。每次一轮的向前传播,得到的值与目标值构成一个损失函数,然后用梯度下降法进行反向传播,来修正参数.</p>
+</div>
+<div class="section" id="id2">
+<h2>要点<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>激活函数</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="decision_trees.html">决策树</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id2">基本流程</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id3">特征划分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id4">剪枝</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id5">优缺点</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html#id6">其他补充</a></li>
+<a class="reference internal image-reference" href="../_images/nn_2.png"><img alt="../_images/nn_2.png" class="align-center" src="../_images/nn_2.png" style="width: 800px;" /></a>
+<p>上图是常见的几种激活函数.tanh其实是sigmoid的一个平移,好处是去中心化,但是两者共有的缺点是,当z特别大或特别小时,其导数接近0,会拖慢梯度下降的计算速度.ReLU是最常用的激活函数,因为它不存在导数接近0的情况,所以计算速度会比较快.它的另一个版本叫Leaky ReLU,但是相对来说用的并不是那么多.</p>
+<ul class="simple">
+<li>Dropout正则化</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l1"><a class="reference internal" href="svm.html">支持向量机(svm)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id1">线性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id2">非线性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id3">求解</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id4">分类与回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html#id5">逻辑回归与SVM对比</a></li>
+<a class="reference internal image-reference" href="../_images/nn_3.png"><img alt="../_images/nn_3.png" class="align-center" src="../_images/nn_3.png" style="width: 800px;" /></a>
+<p>Dropout正则化就是随机的去掉隐藏层的一些神经元.之所以会起到正则化的原因是,神经元是被随机去掉的,这样可以防止整个网络对某一个神经元,或者某一个特征的依赖,从而提升泛化能力.</p>
+<ul class="simple">
+<li>随机初始化</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="neural_network.html">神经网络</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ensemble_learning.html">集成学习</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html#bagging">Bagging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html#boosting">Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html#stacking">Stacking</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">模型评估</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html#classification">Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html#regression">Regression</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pca.html">PCA降维</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
-</ul>
+<p>神经网络的参数初始值如果都是0,或者每个隐藏层的初始参数值都一样的话,会使得每个神经元都在进行相同的计算,这样就失去了多个神经元存在的意义.所以对于参数会进行随机初始化操作,并且初始值不大不小(如1.01),以防止梯度消失和梯度爆炸.</p>
 </div>
 </div>
 
@@ -259,10 +241,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="linear_model.html" class="btn btn-neutral float-right" title="线性回归与逻辑回归" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cnn.html" class="btn btn-neutral float-right" title="卷积神经网络(CNN)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="Machine Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="深度学习" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

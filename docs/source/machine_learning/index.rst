@@ -1,4 +1,4 @@
-理论部分
+机器学习
 ========================================
 
 .. toctree::
@@ -9,8 +9,6 @@
    knn
    naive_bayes
    svm
-   neural_network
    ensemble_learning
    model_evaluation
-   pca
    kmeans

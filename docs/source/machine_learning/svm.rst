@@ -1,4 +1,4 @@
-支持向量机(svm)
+支持向量机(SVM)
 ========================================
 线性
 -----------
@@ -91,6 +91,39 @@ SVM参数:
 .. image:: ../images/svm_parameters.png
     :width: 800px
     :align: center
+
+
+求解
+----------
+SVM求解一般会引入拉格朗日乘子,将目标函数转换成对偶问题,这样更有利于求解。以线性SVM为例,为了将目标函数化为更一般式,令目标值 :math:`y` 为[-1,1],则目标函数为:
+
+.. math::
+    \min_\theta \frac{1}{2}\sum_{j=1}^m\theta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1
+
+引入拉格朗日乘子 :math:`\alpha` ,并使函数最大化:
+
+.. math::
+    \max_{\alpha_i\ge0}L(w,b,\alpha) = \frac{1}{2}\sum_{j=1}^n\theta_j^2-\sum_{i=1}^m\alpha_i\left(y_i(w^Tx_i+b)-1 \right)
+
+目标函数转化为对偶问题:
+
+.. math::
+    \min_{w,b} \max_{\alpha_i\ge0}L(w,b,\alpha)
+
+先求最大值再求最小值更容易求解:
+
+.. math::
+    \max_{\alpha_i\ge0} \min_{w,b}L(w,b,\alpha)
+
+
+分类与回归
+----------
+
+.. image:: ../images/svm_svr.jpg
+    :width: 800px
+    :align: center
+
+
 
 逻辑回归与SVM对比
 ----------------------

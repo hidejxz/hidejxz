@@ -10,14 +10,9 @@ Machine Learning
    :maxdepth: 2
    :glob:
    
-   theory/index
+   machine_learning/index
+   deep_learning/index
    case/index
    others/index
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
