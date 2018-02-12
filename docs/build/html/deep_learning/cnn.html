@@ -38,7 +38,7 @@
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
         <link rel="up" title="深度学习" href="index.html"/>
         <link rel="next" title="序列模型(RNN)" href="rnn.html"/>
-        <link rel="prev" title="神经网络的调优" href="improve_nn.html"/> 
+        <link rel="prev" title="神经网络(Neural Network)" href="neural_network.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -95,8 +95,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">机器学习</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">深度学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络(Neural Network)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="improve_nn.html">神经网络的调优</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">卷积神经网络(CNN)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">卷积神经网络(CNN)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">卷积层</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">池化层</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">经典网络</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="rnn.html">序列模型(RNN)</a></li>
 </ul>
 </li>
@@ -203,6 +207,62 @@
 </style>
 <div class="section" id="cnn">
 <h1>卷积神经网络(CNN)<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h1>
+<p>卷积神经网络一般用在图像识别上.一个完整的卷积神经网络通常由卷积层、池化层和全连接层组成.其中全连接层与普通神经网络的连接方式没有太多区别,重点讲一下卷积层与池化层.</p>
+<div class="section" id="id1">
+<h2>卷积层<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>卷积的过程就是对图像特征提炼的过程。具体的卷积操作如下图所示:</p>
+<a class="reference internal image-reference" href="../_images/cnn_1.png"><img alt="../_images/cnn_1.png" class="align-center" src="../_images/cnn_1.png" style="width: 800px;" /></a>
+<p>左图是一个6 * 6的黑白图片的矩阵,中间是个3 * 3过滤器.将过滤器映射到矩阵的左上角,把对应的数字相乘并求和,得到了等式右边的矩阵的第一个值.如此依次滑动过滤器窗口,每次都做相应的乘积与求和,最终得到目标4 * 4的矩阵.这样的操作就叫卷积.不同的过滤器起到的作用也不同,例如可以检测图片中物品的边缘等.</p>
+<ul class="simple">
+<li>Padding</li>
+</ul>
+<p>如此的卷积操作,会让图片的尺寸越来越小,并且会丢失边缘位置的信息,这种情况在神经网络层数非常深的时候尤为明显.为了避免这个问题,会在卷积操作时对原图片矩阵的边缘进行填充:</p>
+<a class="reference internal image-reference" href="../_images/cnn_2.png"><img alt="../_images/cnn_2.png" class="align-center" src="../_images/cnn_2.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li>Stride</li>
+</ul>
+<p>过滤器的步长也是可以设置的:</p>
+<a class="reference internal image-reference" href="../_images/cnn_3.png"><img alt="../_images/cnn_3.png" class="align-center" src="../_images/cnn_3.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li>单层卷积神经网络</li>
+</ul>
+<p>一个单层的卷积神经网络如图所示:</p>
+<a class="reference internal image-reference" href="../_images/cnn_4.png"><img alt="../_images/cnn_4.png" class="align-center" src="../_images/cnn_4.png" style="width: 800px;" /></a>
+<p>一张彩色的图片通常由RGB三个颜色通道组成.与多个过滤器经过卷积计算并激活后,堆叠成一个新的多层矩阵,作为下一层神经元的输入.一些相关符号与公式如下图所示:</p>
+<a class="reference internal image-reference" href="../_images/cnn_5.png"><img alt="../_images/cnn_5.png" class="align-center" src="../_images/cnn_5.png" style="width: 800px;" /></a>
+</div>
+<div class="section" id="id2">
+<h2>池化层<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>池化层相对来说比较简单,通常用来缩减模型的大小,提高计算速度,同时提高所提取的特征的鲁棒性.</p>
+<a class="reference internal image-reference" href="../_images/cnn_6.png"><img alt="../_images/cnn_6.png" class="align-center" src="../_images/cnn_6.png" style="width: 800px;" /></a>
+<p>池化层也是类似卷积层,会有一个过滤窗口,在过滤窗口内取最大值为Max-Pooling,取平均值叫Average-Pooling.池化层只有filter size和stride这2个超参数,没有其他的参数需要训练</p>
+</div>
+<div class="section" id="id3">
+<h2>经典网络<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>神经网络需要训练的参数与超参数量很大.对于一些特定的问题,可以尝试用相关的经典网络取解决,也有一些比较成熟的方案,去优化一些计算上的问题.下面简单列举一些经典的卷积神经网络及方案:</p>
+<ul class="simple">
+<li>LeNet</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/cnn_lenet.png"><img alt="../_images/cnn_lenet.png" class="align-center" src="../_images/cnn_lenet.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li>AlexNet</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/cnn_alexnet.png"><img alt="../_images/cnn_alexnet.png" class="align-center" src="../_images/cnn_alexnet.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li>VGG-16</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/cnn_vgg16.png"><img alt="../_images/cnn_vgg16.png" class="align-center" src="../_images/cnn_vgg16.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li>ResNet</li>
+</ul>
+<p>ResNet残差网络,会在层与层之间增加跳跃连接,以减少计算成本:</p>
+<a class="reference internal image-reference" href="../_images/cnn_resnet.png"><img alt="../_images/cnn_resnet.png" class="align-center" src="../_images/cnn_resnet.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li>Inception Network</li>
+</ul>
+<p>当不确定过滤器用什么大小时,可以采用不同大小的过滤器与池化层堆叠的形式,并通过1 * 1的过滤器减少信道数,来降低计算成本:</p>
+<a class="reference internal image-reference" href="../_images/cnn_inception.png"><img alt="../_images/cnn_inception.png" class="align-center" src="../_images/cnn_inception.png" style="width: 800px;" /></a>
+</div>
 </div>
 
 
@@ -218,7 +278,7 @@
         <a href="rnn.html" class="btn btn-neutral float-right" title="序列模型(RNN)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="improve_nn.html" class="btn btn-neutral" title="神经网络的调优" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="neural_network.html" class="btn btn-neutral" title="神经网络(Neural Network)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
