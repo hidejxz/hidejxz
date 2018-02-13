@@ -95,9 +95,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">机器学习</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">深度学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="neural_network.html">神经网络(Neural Network)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="improve_nn.html">神经网络的调优</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cnn.html">卷积神经网络(CNN)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">序列模型(RNN)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">序列模型(RNN)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#word-embedding">Word Embedding</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../case/index.html">案例总结</a></li>
@@ -203,6 +206,20 @@
 </style>
 <div class="section" id="rnn">
 <h1>序列模型(RNN)<a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h1>
+<p>序列模型(Recurrent Neural Networks)的应用场景有语音识别,自然语言处理等,所训练的对象一般都是序列数据,例如音频文件,文本文件等等.序列数据的特点是,其内部数据与数据之间存在着一定的先后顺序关系.</p>
+<div class="section" id="id1">
+<h2>结构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>序列模型的常见结构如下图.样本与样本之间存在着一定的序列关系,每一个神经元的输入不只有对应的样本输入,也可以受到之前或者之后(BRNN)样本的影响.</p>
+<a class="reference internal image-reference" href="../_images/rnn_1.png"><img alt="../_images/rnn_1.png" class="align-center" src="../_images/rnn_1.png" style="width: 800px;" /></a>
+<p>对于一些长序列数据,经常会遇到梯度消失的问题,导致远距离的数据信息无法传递到后面.解决这个问题通常会用GRU(Gated Recurrent Unit)和LSTM(Long Short Term Memory).其主要的原理是在信息传递的过程中,带有阀门参数,来控制何时需要用到该信息数据。</p>
+</div>
+<div class="section" id="word-embedding">
+<h2>Word Embedding<a class="headerlink" href="#word-embedding" title="Permalink to this headline">¶</a></h2>
+<p>最原始的词汇表征方法是用one-hot,但是这种方法无法反映出词与词之间的联系.有的词汇意思相近,但是其距离并没有相应的正比关系.一个可行有效的方法就是采用Word Embadding,即用特征向量来表示每个词汇,形成一个带有特征的词汇矩阵.</p>
+<p>word2vec是一种学习词汇嵌入的有效方法.一般分为两种:CBOW是输入上下文,输出目标词汇;Skip-Gram是输入目标词汇,输出上下文.模型用神经网络进行训练,目的不是得到输出值,而是的到隐藏层中的词汇特征矩阵.</p>
+<a class="reference internal image-reference" href="../_images/rnn_2.jpeg"><img alt="../_images/rnn_2.jpeg" class="align-center" src="../_images/rnn_2.jpeg" style="width: 800px;" /></a>
+<p>对于优化计算,常用的有Hierarchical Softmax和Negative Sampling:Hierarchical Softmax是一种对输出层进行优化的策略,输出层从原始模型的利用softmax计算概率值改为了利用Huffman树计算概率值;Negative Sampling的思想是,把语料中的一个词串的中心词替换为别的词，构造语料中不存在的词串作为负样本,在这种策略下,优化目标变为最大化正样本的概率，同时最小化负样本的概率。</p>
+</div>
 </div>
 
 
