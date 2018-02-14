@@ -54,7 +54,7 @@ Adaboost
     &= 
     \begin{cases}
     \frac{w_{mi}}{Z_m}e^{-\alpha_m} & G_m(x_i)=y_i \\
-    \frac{w_{mi}}{Z_m}e^{-\alpha_m} & G_m(x_i)\ne y_i
+    \frac{w_{mi}}{Z_m}e^{\alpha_m} & G_m(x_i)\ne y_i
     \end{cases}\\
     \end{align}
 

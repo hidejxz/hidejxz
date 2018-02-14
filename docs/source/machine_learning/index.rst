@@ -5,10 +5,10 @@
    :maxdepth: 2
    
    linear_model
+   svm
    decision_trees
    knn
    naive_bayes
-   svm
    ensemble_learning
    model_evaluation
    kmeans

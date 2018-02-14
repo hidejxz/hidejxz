@@ -115,6 +115,10 @@ SVM求解一般会引入拉格朗日乘子,将目标函数转换成对偶问题,
 .. math::
     \max_{\alpha_i\ge0} \min_{w,b}L(w,b,\alpha)
 
+SVM对异常值比较敏感,所以经常会引入松弛变量 :math: `\zeta`,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:
+
+.. math::
+    \min_\theta \frac{1}{2}\sum_{j=1}^n\theta_j^2+C\sum_{i=1}^m\zeta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1-\zeta^{(i)}
 
 分类与回归
 ----------

@@ -31,7 +31,7 @@ Recall 表示所有正样本中，有多少被找出来了。
 
 .. math::
     \begin{align}
-    F_\beta &= \frac{(1+\beta^2) \cdot precision \cdot recall}{\beta^2 \cdot (precision+recall)}\\
+    F_\beta &= \frac{(1+\beta^2) \cdot precision \cdot recall}{\beta^2 \cdot precision+recall}\\
     &= \frac{2 \cdot precision \cdot recall}{precision+recall}\ (if\ \beta = 1)
     \end{align}
 

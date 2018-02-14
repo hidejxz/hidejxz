@@ -17,6 +17,11 @@
 .. math::
     \min\ J(\theta)
 
+* 求解
+
+.. math::
+    \theta = (X^TX)^{-1}X^TY
+
 * 梯度下降一般式:  
 
 .. math::

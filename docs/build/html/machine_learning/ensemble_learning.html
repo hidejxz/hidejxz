@@ -38,7 +38,7 @@
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
         <link rel="up" title="机器学习" href="index.html"/>
         <link rel="next" title="模型评估" href="model_evaluation.html"/>
-        <link rel="prev" title="支持向量机(svm)" href="svm.html"/> 
+        <link rel="prev" title="朴素贝叶斯" href="naive_bayes.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -94,10 +94,10 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">机器学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
-<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(KNN)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">集成学习</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bagging">Bagging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#random-forest">Random Forest</a></li>
@@ -269,7 +269,7 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 &amp;=
 \begin{cases}
 \frac{w_{mi}}{Z_m}e^{-\alpha_m} &amp; G_m(x_i)=y_i \\
-\frac{w_{mi}}{Z_m}e^{-\alpha_m} &amp; G_m(x_i)\ne y_i
+\frac{w_{mi}}{Z_m}e^{\alpha_m} &amp; G_m(x_i)\ne y_i
 \end{cases}\\
 \end{align}\end{split}\]</div>
 <p>其中 <span class="math">\(Z_m\)</span> 是规范化因子</p>
@@ -376,7 +376,7 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
         <a href="model_evaluation.html" class="btn btn-neutral float-right" title="模型评估" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="svm.html" class="btn btn-neutral" title="支持向量机(svm)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="naive_bayes.html" class="btn btn-neutral" title="朴素贝叶斯" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -283,6 +283,9 @@ f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\rig
 <p>先求最大值再求最小值更容易求解:</p>
 <div class="math">
 \[\max_{\alpha_i\ge0} \min_{w,b}L(w,b,\alpha)\]</div>
+<p>SVM对异常值比较敏感,所以经常会引入松弛变量 :math: <cite>zeta</cite>,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:</p>
+<div class="math">
+\[\min_\theta \frac{1}{2}\sum_{j=1}^n\theta_j^2+C\sum_{i=1}^m\zeta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1-\zeta^{(i)}\]</div>
 </div>
 <div class="section" id="id4">
 <h2>分类与回归<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>

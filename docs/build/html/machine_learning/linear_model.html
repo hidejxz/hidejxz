@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
         <link rel="up" title="机器学习" href="index.html"/>
-        <link rel="next" title="决策树" href="decision_trees.html"/>
+        <link rel="next" title="支持向量机(SVM)" href="svm.html"/>
         <link rel="prev" title="机器学习" href="index.html"/> 
 
   
@@ -99,10 +99,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#id4">正则化</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
-<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(KNN)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
@@ -230,6 +230,11 @@
 <div class="math">
 \[\min\ J(\theta)\]</div>
 <ul class="simple">
+<li>求解</li>
+</ul>
+<div class="math">
+\[\theta = (X^TX)^{-1}X^TY\]</div>
+<ul class="simple">
 <li>梯度下降一般式:</li>
 </ul>
 <div class="math">
@@ -306,7 +311,7 @@ Elastic Net &amp; : \lambda\rho\sum_{j=1}^m\theta_j+\frac{\lambda(1-\rho)}{2}\su
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="decision_trees.html" class="btn btn-neutral float-right" title="决策树" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="svm.html" class="btn btn-neutral float-right" title="支持向量机(SVM)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="机器学习" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
