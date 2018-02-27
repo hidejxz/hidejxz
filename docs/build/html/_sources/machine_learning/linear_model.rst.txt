@@ -2,43 +2,37 @@
 ========================================
 线性回归
 ----------
-* 一般式:  
+* 一般式:线性回归就是用属性的线性组合构造预测函数  
 
 .. math::
     h_\theta(x)=\theta^Tx=\theta_0+\theta_1x_1+\theta_2x_2+\cdots+\theta_nx_n
 
-* 损失函数(L2正则):  
+* 损失函数(L2正则): 最小二乘法,即最小化误差平方和
 
 .. math::
     J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\lambda\sum_{j=1}^n\theta_j^2\right]
 
-* 目标: 最小化损失函数，即:  
-
 .. math::
     \min\ J(\theta)
 
-* 求解
+* 矩阵求解
 
 .. math::
     \theta = (X^TX)^{-1}X^TY
 
-* 梯度下降一般式:  
-
-.. math::
-    \theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)
-
-* 线性回归的梯度下降:
+* 梯度下降求解:  
 
 .. math::
    \begin{align}
-   \theta_j & := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
+   \theta_j & :=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\\
+   & := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
    & := \theta_j(1-\alpha\frac{\lambda}{m})-\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}
    \end{align}
 
 
 逻辑回归
 ----------
-* 一般式:  
+* 一般式: 以线性回归为基础,套了一层sigmoid function 
 
 .. math::
     h_\theta(x)=g(\theta^Tx)
@@ -49,10 +43,10 @@
     g(z)=\frac{1}{1+e^{-z}}
 
 .. image:: ../images/lr_sigmoid.png
-    :width: 200px
+    :width: 300px
     :align: center
 
-* 损失函数(L2正则):
+* 损失函数(L2正则):源自参数的极大似然估计
 
 .. math::
     \begin{align}

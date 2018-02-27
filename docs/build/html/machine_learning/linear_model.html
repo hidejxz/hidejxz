@@ -215,43 +215,36 @@
 <div class="section" id="id2">
 <h2>线性回归<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>一般式:</li>
+<li>一般式:线性回归就是用属性的线性组合构造预测函数</li>
 </ul>
 <div class="math">
 \[h_\theta(x)=\theta^Tx=\theta_0+\theta_1x_1+\theta_2x_2+\cdots+\theta_nx_n\]</div>
 <ul class="simple">
-<li>损失函数(L2正则):</li>
+<li>损失函数(L2正则): 最小二乘法,即最小化误差平方和</li>
 </ul>
 <div class="math">
 \[J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\lambda\sum_{j=1}^n\theta_j^2\right]\]</div>
-<ul class="simple">
-<li>目标: 最小化损失函数，即:</li>
-</ul>
 <div class="math">
 \[\min\ J(\theta)\]</div>
 <ul class="simple">
-<li>求解</li>
+<li>矩阵求解</li>
 </ul>
 <div class="math">
 \[\theta = (X^TX)^{-1}X^TY\]</div>
 <ul class="simple">
-<li>梯度下降一般式:</li>
-</ul>
-<div class="math">
-\[\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\]</div>
-<ul class="simple">
-<li>线性回归的梯度下降:</li>
+<li>梯度下降求解:</li>
 </ul>
 <div class="math">
 \[\begin{split}\begin{align}
-\theta_j &amp; := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
+\theta_j &amp; :=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\\
+&amp; := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
 &amp; := \theta_j(1-\alpha\frac{\lambda}{m})-\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}
 \end{align}\end{split}\]</div>
 </div>
 <div class="section" id="id3">
 <h2>逻辑回归<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>一般式:</li>
+<li>一般式: 以线性回归为基础,套了一层sigmoid function</li>
 </ul>
 <div class="math">
 \[h_\theta(x)=g(\theta^Tx)\]</div>
@@ -260,9 +253,9 @@
 </ul>
 <div class="math">
 \[g(z)=\frac{1}{1+e^{-z}}\]</div>
-<a class="reference internal image-reference" href="../_images/lr_sigmoid.png"><img alt="../_images/lr_sigmoid.png" class="align-center" src="../_images/lr_sigmoid.png" style="width: 200px;" /></a>
+<a class="reference internal image-reference" href="../_images/lr_sigmoid.png"><img alt="../_images/lr_sigmoid.png" class="align-center" src="../_images/lr_sigmoid.png" style="width: 300px;" /></a>
 <ul class="simple">
-<li>损失函数(L2正则):</li>
+<li>损失函数(L2正则):源自参数的极大似然估计</li>
 </ul>
 <div class="math">
 \[\begin{split}\begin{align}
