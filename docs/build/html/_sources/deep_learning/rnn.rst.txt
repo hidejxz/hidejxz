@@ -12,7 +12,7 @@
     :width: 800px
     :align: center
 
-对于一些长序列数据,经常会遇到梯度消失的问题,导致远距离的数据信息无法传递到后面.解决这个问题通常会用GRU(Gated Recurrent Unit)和LSTM(Long Short Term Memory).其主要的原理是在信息传递的过程中,带有阀门参数,来控制何时需要用到该信息数据。
+对于一些长序列数据,经常会遇到梯度消失的问题,导致远距离的数据信息无法传递到后面.解决这个问题通常会用LSTM(Long Short Term Memory)和GRU(Gated Recurrent Unit).其主要的原理是结合激活函数,构造信息传递的阀门来控制何时需要用到该信息数据.LSTM采用了"忘却门"和"记忆门",而GRU是LSTM的改进版,将两扇门合并成了一扇"更新门",更加简洁有效.
 
 Word Embedding
 -----------------

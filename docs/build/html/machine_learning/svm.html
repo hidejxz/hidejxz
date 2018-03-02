@@ -37,8 +37,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
         <link rel="up" title="机器学习" href="index.html"/>
-        <link rel="next" title="集成学习" href="ensemble_learning.html"/>
-        <link rel="prev" title="朴素贝叶斯" href="naive_bayes.html"/> 
+        <link rel="next" title="决策树" href="decision_trees.html"/>
+        <link rel="prev" title="线性回归与逻辑回归" href="linear_model.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -94,9 +94,6 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">机器学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
-<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(KNN)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">支持向量机(SVM)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">线性</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">非线性</a></li>
@@ -105,6 +102,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">逻辑回归与SVM对比</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(KNN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
@@ -276,14 +276,14 @@ f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\rig
 \[\min_\theta \frac{1}{2}\sum_{j=1}^m\theta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1\]</div>
 <p>引入拉格朗日乘子 <span class="math">\(\alpha\)</span> ,并使函数最大化:</p>
 <div class="math">
-\[\max_{\alpha_i\ge0}L(w,b,\alpha) = \frac{1}{2}\sum_{j=1}^n\theta_j^2-\sum_{i=1}^m\alpha_i\left(y_i(w^Tx_i+b)-1 \right)\]</div>
+\[\max_{\alpha_i\ge0}L(\theta,b,\alpha) = \frac{1}{2}\sum_{j=1}^n\theta_j^2-\sum_{i=1}^m\alpha_i\left(y_i(\theta^Tx_i+b)-1 \right)\]</div>
 <p>目标函数转化为对偶问题:</p>
 <div class="math">
-\[\min_{w,b} \max_{\alpha_i\ge0}L(w,b,\alpha)\]</div>
-<p>先求最大值再求最小值更容易求解:</p>
+\[\min_{\theta,b} \max_{\alpha_i\ge0}L(\theta,b,\alpha)\]</div>
+<p>先求极小值再求极大值更容易求解:</p>
 <div class="math">
-\[\max_{\alpha_i\ge0} \min_{w,b}L(w,b,\alpha)\]</div>
-<p>SVM对异常值比较敏感,所以经常会引入松弛变量 :math: <cite>zeta</cite>,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:</p>
+\[\max_{\alpha_i\ge0} \min_{\theta,b}L(\theta,b,\alpha)\]</div>
+<p>SVM对异常值比较敏感,所以经常会引入松弛变量 <span class="math">\(\zeta\)</span>,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:</p>
 <div class="math">
 \[\min_\theta \frac{1}{2}\sum_{j=1}^n\theta_j^2+C\sum_{i=1}^m\zeta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1-\zeta^{(i)}\]</div>
 </div>
@@ -308,10 +308,10 @@ f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\rig
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ensemble_learning.html" class="btn btn-neutral float-right" title="集成学习" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="decision_trees.html" class="btn btn-neutral float-right" title="决策树" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="naive_bayes.html" class="btn btn-neutral" title="朴素贝叶斯" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="linear_model.html" class="btn btn-neutral" title="线性回归与逻辑回归" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

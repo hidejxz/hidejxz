@@ -103,19 +103,19 @@ SVM求解一般会引入拉格朗日乘子,将目标函数转换成对偶问题,
 引入拉格朗日乘子 :math:`\alpha` ,并使函数最大化:
 
 .. math::
-    \max_{\alpha_i\ge0}L(w,b,\alpha) = \frac{1}{2}\sum_{j=1}^n\theta_j^2-\sum_{i=1}^m\alpha_i\left(y_i(w^Tx_i+b)-1 \right)
+    \max_{\alpha_i\ge0}L(\theta,b,\alpha) = \frac{1}{2}\sum_{j=1}^n\theta_j^2-\sum_{i=1}^m\alpha_i\left(y_i(\theta^Tx_i+b)-1 \right)
 
 目标函数转化为对偶问题:
 
 .. math::
-    \min_{w,b} \max_{\alpha_i\ge0}L(w,b,\alpha)
+    \min_{\theta,b} \max_{\alpha_i\ge0}L(\theta,b,\alpha)
 
-先求最大值再求最小值更容易求解:
+先求极小值再求极大值更容易求解:
 
 .. math::
-    \max_{\alpha_i\ge0} \min_{w,b}L(w,b,\alpha)
+    \max_{\alpha_i\ge0} \min_{\theta,b}L(\theta,b,\alpha)
 
-SVM对异常值比较敏感,所以经常会引入松弛变量 :math: `\zeta`,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:
+SVM对异常值比较敏感,所以经常会引入松弛变量 :math:`\zeta`,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:
 
 .. math::
     \min_\theta \frac{1}{2}\sum_{j=1}^n\theta_j^2+C\sum_{i=1}^m\zeta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1-\zeta^{(i)}

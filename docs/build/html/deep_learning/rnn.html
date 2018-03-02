@@ -211,7 +211,7 @@
 <h2>结构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>序列模型的常见结构如下图.样本与样本之间存在着一定的序列关系,每一个神经元的输入不只有对应的样本输入,也可以受到之前或者之后(BRNN)样本的影响.</p>
 <a class="reference internal image-reference" href="../_images/rnn_1.png"><img alt="../_images/rnn_1.png" class="align-center" src="../_images/rnn_1.png" style="width: 800px;" /></a>
-<p>对于一些长序列数据,经常会遇到梯度消失的问题,导致远距离的数据信息无法传递到后面.解决这个问题通常会用GRU(Gated Recurrent Unit)和LSTM(Long Short Term Memory).其主要的原理是在信息传递的过程中,带有阀门参数,来控制何时需要用到该信息数据。</p>
+<p>对于一些长序列数据,经常会遇到梯度消失的问题,导致远距离的数据信息无法传递到后面.解决这个问题通常会用LSTM(Long Short Term Memory)和GRU(Gated Recurrent Unit).其主要的原理是结合激活函数,构造信息传递的阀门来控制何时需要用到该信息数据.LSTM采用了”忘却门”和”记忆门”,而GRU是LSTM的改进版,将两扇门合并成了一扇”更新门”,更加简洁有效.</p>
 </div>
 <div class="section" id="word-embedding">
 <h2>Word Embedding<a class="headerlink" href="#word-embedding" title="Permalink to this headline">¶</a></h2>
