@@ -37,8 +37,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="hidejxz-blog 1.0.0 documentation" href="../index.html"/>
         <link rel="up" title="机器学习" href="index.html"/>
-        <link rel="next" title="k近邻(knn)" href="knn.html"/>
-        <link rel="prev" title="线性回归与逻辑回归" href="linear_model.html"/> 
+        <link rel="next" title="k近邻(KNN)" href="knn.html"/>
+        <link rel="prev" title="支持向量机(SVM)" href="svm.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -94,6 +94,7 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">机器学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">决策树</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">基本流程</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">特征划分</a><ul>
@@ -108,9 +109,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#id6">其他补充</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(knn)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(KNN)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(svm)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">模型评估</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans.html">k均值(kmeans)</a></li>
@@ -268,7 +268,7 @@
 <p>剪枝的目的是防止模型过拟合。整体的损失函数可以总结为:</p>
 <div class="math">
 \[C_{\alpha}(T) = C(T) + \alpha|T|\]</div>
-<p><span class="math">\(C(T)\)</span> 为模型的训练误差(熵或者Gini指数),:math:<cite>|T|</cite> 为叶结点个数,表示模型的复杂程度。</p>
+<p><span class="math">\(C(T)\)</span> 为模型的预测误差(熵或者Gini指数),:math:<cite>|T|</cite> 为叶结点个数,表示模型的复杂程度。</p>
 <p>剪枝分为前剪枝和后剪枝。前剪枝比较容易造成欠拟合,一般用后剪枝比较多。</p>
 </div>
 <div class="section" id="id5">
@@ -304,10 +304,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="knn.html" class="btn btn-neutral float-right" title="k近邻(knn)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="knn.html" class="btn btn-neutral float-right" title="k近邻(KNN)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="linear_model.html" class="btn btn-neutral" title="线性回归与逻辑回归" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="svm.html" class="btn btn-neutral" title="支持向量机(SVM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
