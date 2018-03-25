@@ -224,7 +224,7 @@
 <p>集成学习的目的,就是把一些个体基学习器按照某种策略融合到一起,形成一个比每个单一基学习器效果都要好的融合模型。</p>
 <div class="section" id="bagging">
 <h2>Bagging<a class="headerlink" href="#bagging" title="Permalink to this headline">¶</a></h2>
-<p>给定包含m个样本的数据集,有放回地抽样m次,得到一个含m个样本的子集(初始训练集中有63.2%的样本出现在该子集中)。如此进行T次操作,即可得到T个含m个样本的采样集。基于每个采样集训练出一个基学习器,再将它们结合:分类问题可以采用简单投票法,回归问题可以采用简单平均法。</p>
+<p>给定包含m个样本的数据集,有放回地进行抽样,每次得到一个含m个样本的子集(初始训练集中有63.2%的样本出现在该子集中)。如此进行T次操作,即可得到T个含m个样本的采样集。基于每个采样集训练出一个基学习器,再将它们结合:分类问题可以采用简单投票法,回归问题可以采用简单平均法。</p>
 <div class="section" id="random-forest">
 <h3>Random Forest<a class="headerlink" href="#random-forest" title="Permalink to this headline">¶</a></h3>
 <p>随机森林是最典型的Bagging扩展体之一。其基分类器为决策树,除了对样本进行有放回的抽取之外,每次还会随机选择k个属性进行训练,最后对结果进行结合。</p>

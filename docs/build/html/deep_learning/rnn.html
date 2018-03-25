@@ -215,7 +215,7 @@
 </div>
 <div class="section" id="word-embedding">
 <h2>Word Embedding<a class="headerlink" href="#word-embedding" title="Permalink to this headline">¶</a></h2>
-<p>最原始的词汇表征方法是用one-hot,但是这种方法无法反映出词与词之间的联系.有的词汇意思相近,但是其距离并没有相应的正比关系.一个可行有效的方法就是采用Word Embadding,即用特征向量来表示每个词汇,形成一个带有特征的词汇矩阵.</p>
+<p>最原始的词汇表征方法是用one-hot,但是这种方法无法反映出词与词之间的联系.有的词汇意思相近,但是其距离并没有相应的正比关系.一个可行有效的方法就是采用Word Embedding,即用特征向量来表示每个词汇,形成一个带有特征的词汇矩阵.</p>
 <p>word2vec是一种学习词汇嵌入的有效方法.一般分为两种:CBOW是输入上下文,输出目标词汇;Skip-Gram是输入目标词汇,输出上下文.模型用神经网络进行训练,目的不是得到输出值,而是的到隐藏层中的词汇特征矩阵.</p>
 <a class="reference internal image-reference" href="../_images/rnn_2.jpeg"><img alt="../_images/rnn_2.jpeg" class="align-center" src="../_images/rnn_2.jpeg" style="width: 800px;" /></a>
 <p>对于优化计算,常用的有Hierarchical Softmax和Negative Sampling:Hierarchical Softmax是一种对输出层进行优化的策略,输出层从原始模型的利用softmax计算概率值改为了利用Huffman树计算概率值;Negative Sampling的思想是,把语料中的一个词串的中心词替换为别的词，构造语料中不存在的词串作为负样本,在这种策略下,优化目标变为最大化正样本的概率，同时最小化负样本的概率。</p>
