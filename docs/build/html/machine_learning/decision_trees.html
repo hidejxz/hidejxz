@@ -229,32 +229,32 @@
 <div class="section" id="c3">
 <h3>1. C3 - 信息增益<a class="headerlink" href="#c3" title="Permalink to this headline">¶</a></h3>
 <p>熵的定义:</p>
-<div class="math">
+<div class="math notranslate">
 \[Ent(p) = -\sum_{i=1}^np_i\log p_i\]</div>
 <p>当变量只有两个值时,熵的曲线如下图:</p>
 <a class="reference internal image-reference" href="../_images/dt_entropy.png"><img alt="../_images/dt_entropy.png" class="align-center" src="../_images/dt_entropy.png" style="width: 300px;" /></a>
-<p>当 <span class="math">\(p=0\)</span> 或 <span class="math">\(p=1\)</span> 时,变量最纯,此时熵为0;当 <span class="math">\(p=0.5\)</span> 时,变量不确定性最大,此时熵也最大,为1;</p>
-<p>假设离散属性 <span class="math">\(a\)</span> 有 <span class="math">\(V\)</span> 个可能的取值, 用它来划分样本集 <span class="math">\(D\)</span> ,会产生 <span class="math">\(V\)</span> 个分支结点,则信息增益可以表示为:</p>
-<div class="math">
+<p>当 <span class="math notranslate">\(p=0\)</span> 或 <span class="math notranslate">\(p=1\)</span> 时,变量最纯,此时熵为0;当 <span class="math notranslate">\(p=0.5\)</span> 时,变量不确定性最大,此时熵也最大,为1;</p>
+<p>假设离散属性 <span class="math notranslate">\(a\)</span> 有 <span class="math notranslate">\(V\)</span> 个可能的取值, 用它来划分样本集 <span class="math notranslate">\(D\)</span> ,会产生 <span class="math notranslate">\(V\)</span> 个分支结点,则信息增益可以表示为:</p>
+<div class="math notranslate">
 \[Gain(D,a) = Ent(D) - \sum_{i=1}^V\frac{|D^{v}|}{|D|}Ent(D^v)\]</div>
-<p>比较各属性的信息增益,选择信息增益最大的特征进行划分。划分完之后,对产生的 <span class="math">\(V\)</span> 个子集各自继续划分,直到无法划分为止。</p>
+<p>比较各属性的信息增益,选择信息增益最大的特征进行划分。划分完之后,对产生的 <span class="math notranslate">\(V\)</span> 个子集各自继续划分,直到无法划分为止。</p>
 </div>
 <div class="section" id="c4-5">
 <h3>2. C4.5 - 信息增益比<a class="headerlink" href="#c4-5" title="Permalink to this headline">¶</a></h3>
 <p>C4.5相比与C3,采用的是信息增益比的方法,这样做会让划分更变偏向于取值数目较少的属性:</p>
-<div class="math">
+<div class="math notranslate">
 \[Gain\_ratio(D,a) = \frac{Gain(D,a)}{Ent_a(D)}\]</div>
 <p>另外,C5.0也是通过信息增益率来划分结点的,在准确率,性能方面都会优于C4.5。</p>
 </div>
 <div class="section" id="gini-cart">
 <h3>3. Gini指数 - CART分类<a class="headerlink" href="#gini-cart" title="Permalink to this headline">¶</a></h3>
 <p>Gini指数的定义:</p>
-<div class="math">
+<div class="math notranslate">
 \[Gini(p) = \sum_{i=1}^np_i(1-p_i) = 1-\sum_{i=1}^np_i^2\]</div>
 <p>二分类问题中基尼指数,1/2熵和分类误差率的关系如图:</p>
 <a class="reference internal image-reference" href="../_images/dt_gini.png"><img alt="../_images/dt_gini.png" class="align-center" src="../_images/dt_gini.png" style="width: 300px;" /></a>
 <p>在数据集中的Gini指数则定义为</p>
-<div class="math">
+<div class="math notranslate">
 \[Gini(D,a) = \sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)\]</div>
 <p>选择Gini指数最小的特征进行划分。</p>
 </div>
@@ -266,9 +266,9 @@
 <div class="section" id="id4">
 <h2>剪枝<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>剪枝的目的是防止模型过拟合。整体的损失函数可以总结为:</p>
-<div class="math">
+<div class="math notranslate">
 \[C_{\alpha}(T) = C(T) + \alpha|T|\]</div>
-<p><span class="math">\(C(T)\)</span> 为模型的预测误差(熵或者Gini指数),:math:<cite>|T|</cite> 为叶结点个数,表示模型的复杂程度。</p>
+<p><span class="math notranslate">\(C(T)\)</span> 为模型的预测误差(熵或者Gini指数),:math:<cite>|T|</cite> 为叶结点个数,表示模型的复杂程度。</p>
 <p>剪枝分为前剪枝和后剪枝。前剪枝比较容易造成欠拟合,一般用后剪枝比较多。</p>
 </div>
 <div class="section" id="id5">
@@ -339,6 +339,7 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.0.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

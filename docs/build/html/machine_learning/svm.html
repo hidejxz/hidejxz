@@ -218,36 +218,36 @@
 <h2>线性<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>SVM的线性分类问题得先从逻辑回归说起。</p>
 <a class="reference internal image-reference" href="../_images/svm_cf.png"><img alt="../_images/svm_cf.png" class="align-center" src="../_images/svm_cf.png" style="width: 800px;" /></a>
-<p>如上图所示，在y=1和y=0两种情况下，分别对损失函数做了更严格的调整，并对整个损失函数除以了 <span class="math">\(\frac{\lambda}{m}\)</span> ,即：</p>
-<div class="math">
+<p>如上图所示，在y=1和y=0两种情况下，分别对损失函数做了更严格的调整，并对整个损失函数除以了 <span class="math notranslate">\(\frac{\lambda}{m}\)</span> ,即：</p>
+<div class="math notranslate">
 \[LR : \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\]</div>
-<div class="math">
+<div class="math notranslate">
 \[SVM : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2\]</div>
 <p>为了最小化损失函数，得让函数的第一项无限逼近于0，而正则项最小化，即</p>
-<div class="math">
+<div class="math notranslate">
 \[\min_\theta\frac{1}{2}\sum_{j=1}^n\theta_j^2\]</div>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{cases}
 \theta^Tx \ge 1(not\ just \ge 0) &amp; \mbox{if }y=1 \\
 \theta^Tx \leq -1(not\ just \leq 0) &amp; \mbox{if }y=0
 \end{cases}\end{split}\]</div>
 <p>而</p>
-<div class="math">
+<div class="math notranslate">
 \[\theta^Tx^{(i)}=p^{(i)}\cdot\|\theta\|\]</div>
-<p>其中 <span class="math">\(p\)</span> 为 <span class="math">\(x\)</span> 向量在 <span class="math">\(\theta\)</span> 向量上的映射，同时也是 <span class="math">\(x\)</span> 到分界超平面的距离，如下图所示</p>
+<p>其中 <span class="math notranslate">\(p\)</span> 为 <span class="math notranslate">\(x\)</span> 向量在 <span class="math notranslate">\(\theta\)</span> 向量上的映射，同时也是 <span class="math notranslate">\(x\)</span> 到分界超平面的距离，如下图所示</p>
 <a class="reference internal image-reference" href="../_images/svm_db.png"><img alt="../_images/svm_db.png" class="align-center" src="../_images/svm_db.png" style="width: 800px;" /></a>
-<p>所以为了最小化目标函数，在 <span class="math">\(\theta\)</span> 尽可能取最小值的情况下，尽可能增大 <span class="math">\(p\)</span> 。SVM就是通过这样的方式来增大样本与决策边界的距离，同时最小化特征的权重参数。</p>
+<p>所以为了最小化目标函数，在 <span class="math notranslate">\(\theta\)</span> 尽可能取最小值的情况下，尽可能增大 <span class="math notranslate">\(p\)</span> 。SVM就是通过这样的方式来增大样本与决策边界的距离，同时最小化特征的权重参数。</p>
 </div>
 <div class="section" id="id2">
 <h2>非线性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>对于非线性的决策边界，一个简单的典型例子如下图,其中部分特征由高阶项组成:</p>
 <a class="reference internal image-reference" href="../_images/svm_non_lin.png"><img alt="../_images/svm_non_lin.png" class="align-center" src="../_images/svm_non_lin.png" style="width: 800px;" /></a>
 <p>我们的假设是将所有的样本都映射到另一个空间(高维空间，维度为训练样本的数量m)，而在这个高维空间中样本线性可分。因此:</p>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1x_2+\theta_4x_1^2+\theta_5x_2^2+\cdots\\
 =\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3+\theta_4f_4+\theta_5f_5+\cdots+\theta_mf_m\end{split}\]</div>
-<p>其中 <span class="math">\(f\)</span> 是 <span class="math">\(x\)</span> 到另一个高维空间的映射函数，也称为两者的相似函数，也是传说中的核函数！高斯核函数是一种常用的核函数:</p>
-<div class="math">
+<p>其中 <span class="math notranslate">\(f\)</span> 是 <span class="math notranslate">\(x\)</span> 到另一个高维空间的映射函数，也称为两者的相似函数，也是传说中的核函数！高斯核函数是一种常用的核函数:</p>
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\right)\\
 &amp; \approx
@@ -256,35 +256,35 @@ f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\rig
 0 &amp; \mbox{if }x\ far\ from\ l^{(i)}
 \end{cases}
 \end{align}\end{split}\]</div>
-<p>其中 <span class="math">\(l^{(i)}\)</span> 即为 <span class="math">\(x^{(i)}\)</span></p>
+<p>其中 <span class="math notranslate">\(l^{(i)}\)</span> 即为 <span class="math notranslate">\(x^{(i)}\)</span></p>
 <p>所以总的svm求解步骤可以总结为如下图:</p>
 <a class="reference internal image-reference" href="../_images/svm_non_lin2.png"><img alt="../_images/svm_non_lin2.png" class="align-center" src="../_images/svm_non_lin2.png" style="width: 800px;" /></a>
 <p>目标函数:</p>
-<div class="math">
+<div class="math notranslate">
 \[LR : \min_\theta\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\left(-\log h_\theta(x^{(i)})\right)+(1-y^{(i)})\left(-\log(1-h_\theta(x^{(i)}))\right)\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\]</div>
-<div class="math">
+<div class="math notranslate">
 \[SVM线性 : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y)^{(i)}cost_0(\theta^Tx^{(i)})\right]+\frac{1}{2}\sum_{j=1}^n\theta_j^2\]</div>
-<div class="math">
+<div class="math notranslate">
 \[SVM非线性 : \min_\theta C\sum_{i=1}^m\left[y^{(i)}cost_1(\theta^Tf^{(i)})+(1-y)^{(i)}cost_0(\theta^Tf^{(i)})\right]+\frac{1}{2}\sum_{i=1}^m\theta_i^2\]</div>
 <p>SVM参数:</p>
 <a class="reference internal image-reference" href="../_images/svm_parameters.png"><img alt="../_images/svm_parameters.png" class="align-center" src="../_images/svm_parameters.png" style="width: 800px;" /></a>
 </div>
 <div class="section" id="id3">
 <h2>求解<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>SVM求解一般会引入拉格朗日乘子,将目标函数转换成对偶问题,这样更有利于求解。以线性SVM为例,为了将目标函数化为更一般式,令目标值 <span class="math">\(y\)</span> 为[-1,1],则目标函数为:</p>
-<div class="math">
+<p>SVM求解一般会引入拉格朗日乘子,将目标函数转换成对偶问题,这样更有利于求解。以线性SVM为例,为了将目标函数化为更一般式,令目标值 <span class="math notranslate">\(y\)</span> 为[-1,1],则目标函数为:</p>
+<div class="math notranslate">
 \[\min_\theta \frac{1}{2}\sum_{j=1}^m\theta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1\]</div>
-<p>引入拉格朗日乘子 <span class="math">\(\alpha\)</span> ,并使函数最大化:</p>
-<div class="math">
+<p>引入拉格朗日乘子 <span class="math notranslate">\(\alpha\)</span> ,并使函数最大化:</p>
+<div class="math notranslate">
 \[\max_{\alpha_i\ge0}L(\theta,b,\alpha) = \frac{1}{2}\sum_{j=1}^n\theta_j^2-\sum_{i=1}^m\alpha_i\left(y_i(\theta^Tx_i+b)-1 \right)\]</div>
 <p>目标函数转化为对偶问题:</p>
-<div class="math">
+<div class="math notranslate">
 \[\min_{\theta,b} \max_{\alpha_i\ge0}L(\theta,b,\alpha)\]</div>
 <p>先求极小值再求极大值更容易求解:</p>
-<div class="math">
+<div class="math notranslate">
 \[\max_{\alpha_i\ge0} \min_{\theta,b}L(\theta,b,\alpha)\]</div>
-<p>SVM对异常值比较敏感,所以经常会引入松弛变量 <span class="math">\(\zeta\)</span>,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:</p>
-<div class="math">
+<p>SVM对异常值比较敏感,所以经常会引入松弛变量 <span class="math notranslate">\(\zeta\)</span>,即允许数据点在一定程度上偏离超平面.此时目标函数可转化为:</p>
+<div class="math notranslate">
 \[\min_\theta \frac{1}{2}\sum_{j=1}^n\theta_j^2+C\sum_{i=1}^m\zeta_j^2\qquad s.t.,y^{(i)}(\theta^Tx^{(i)}+b)\ge1-\zeta^{(i)}\]</div>
 </div>
 <div class="section" id="id4">
@@ -343,6 +343,7 @@ f_m &amp; = similarity(x,l^{(i)})=\exp\left(-\frac{\|x-l^{(i)}\|}{2\sigma^2}\rig
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.0.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

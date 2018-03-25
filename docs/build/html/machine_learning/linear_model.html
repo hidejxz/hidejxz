@@ -217,24 +217,24 @@
 <ul class="simple">
 <li>一般式:线性回归就是用属性的线性组合构造预测函数</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[h_\theta(x)=\theta^Tx=\theta_0+\theta_1x_1+\theta_2x_2+\cdots+\theta_nx_n\]</div>
 <ul class="simple">
 <li>损失函数(L2正则): 最小二乘法,即最小化误差平方和</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\lambda\sum_{j=1}^n\theta_j^2\right]\]</div>
-<div class="math">
+<div class="math notranslate">
 \[\min\ J(\theta)\]</div>
 <ul class="simple">
 <li>矩阵求解</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[\theta = (X^TX)^{-1}X^TY\]</div>
 <ul class="simple">
 <li>梯度下降求解:</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 \theta_j &amp; :=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\\
 &amp; := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
@@ -246,18 +246,18 @@
 <ul class="simple">
 <li>一般式: 以线性回归为基础,套了一层sigmoid function</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[h_\theta(x)=g(\theta^Tx)\]</div>
 <ul class="simple">
 <li>Sigmoid Function</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[g(z)=\frac{1}{1+e^{-z}}\]</div>
 <a class="reference internal image-reference" href="../_images/lr_sigmoid.png"><img alt="../_images/lr_sigmoid.png" class="align-center" src="../_images/lr_sigmoid.png" style="width: 300px;" /></a>
 <ul class="simple">
 <li>损失函数(L2正则):源自参数的极大似然估计</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 Cost(h_\theta(x),y) &amp; =
 \begin{cases}
@@ -266,15 +266,15 @@ Cost(h_\theta(x),y) &amp; =
 \end{cases}\\
 &amp; = -y\log(h_\theta(x))-(1-y)\log(1-h_\theta(x))
 \end{align}\end{split}\]</div>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 J(\theta) &amp; = \frac{1}{m}\sum_{i=1}^mCost(h_\theta(x^{(i)}),y^{(i)})+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2\\
 &amp; = -\frac{1}{m}\sum_{i=1}^m\left[y^{(i)}\log(h_\theta(x^{(i)}))+(1-y^{(i)})\log(1-h_\theta(x^{(i)}))\right]+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2
 \end{align}\end{split}\]</div>
 <ul class="simple">
-<li>逻辑回归的梯度下降(正好形式与线性回归一致，区别在于 <span class="math">\(h_\theta(x)\)</span> 不同):</li>
+<li>逻辑回归的梯度下降(正好形式与线性回归一致，区别在于 <span class="math notranslate">\(h_\theta(x)\)</span> 不同):</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 \theta_j &amp; := \theta_j-\alpha\left[\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{\lambda}{m}\theta_j\right]\\
 &amp; := \theta_j(1-\alpha\frac{\lambda}{m})-\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}
@@ -283,7 +283,7 @@ J(\theta) &amp; = \frac{1}{m}\sum_{i=1}^mCost(h_\theta(x^{(i)}),y^{(i)})+\frac{\
 <div class="section" id="id4">
 <h2>正则化<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>正则化的目的是防止模型过拟合。常见的正则项有:</p>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 Lasso(L1正则化) &amp; : \lambda\sum_{j=1}^m\theta_j\\
 Ridge(L2正则化) &amp; : \lambda\sum_{j=1}^m\theta_j^2\\
@@ -339,6 +339,7 @@ Elastic Net &amp; : \lambda\rho\sum_{j=1}^m\theta_j+\frac{\lambda(1-\rho)}{2}\su
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.0.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

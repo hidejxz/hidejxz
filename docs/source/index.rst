@@ -7,7 +7,7 @@ Machine Learning
 
 深度学习的部分主要借鉴Andrew Ng大神的在线课程.目前只是初学阶段,将一些深度学习的基础知识,比较直观地做了点总结.等以后有时间再慢慢学习和添加一些细节部分.
 
-Email:hidejxz@hotmail.com
+Email:hidejxz@hotmail.com.
 
 目录:
 ^^^^^

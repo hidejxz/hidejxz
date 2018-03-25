@@ -92,7 +92,8 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../theory/index.html">理论部分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">机器学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deep_learning/index.html">深度学习</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">案例总结</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="titanic.html">Titanic存活预测</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">房价预测</a><ul>
@@ -405,11 +406,11 @@ div.nboutput div.output_area.stderr {
 <div class="section" id="2.-数据分析">
 <h2>2. 数据分析<a class="headerlink" href="#2.-数据分析" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -422,11 +423,11 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
 <span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span><span class="n">test</span><span class="p">],</span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="s1">&#39;test&#39;</span><span class="p">],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -434,17 +435,17 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[3]:
 </pre></div>
 </div>
@@ -618,11 +619,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>首先看一下房价的分布</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
 <span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -643,22 +644,22 @@ div.nboutput div.output_area.stderr {
 <p>原数据分布明显偏右,对数处理后呈正态分布。评分标准也是需要对预测值取对数的。</p>
 <p>分别看一下离散特征和连续特征与目标变量的关系。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">numeric_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">!=</span><span class="s2">&quot;object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
 <span class="n">categorical_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">==</span><span class="s2">&quot;object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1">#number of variables for heatmap</span>
 <span class="n">corrmat</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 <span class="n">cols</span> <span class="o">=</span> <span class="n">corrmat</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">)[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
@@ -680,11 +681,11 @@ div.nboutput div.output_area.stderr {
 <p>取与房价相关系数最高的9个连续属性，发现OverallQual整体质量和GrLivArea地面可居住面积的系数都比较高。</p>
 <p>各连续特征与房价的关系:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">numeric_feats</span> <span class="o">=</span> <span class="n">numeric_feats</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;SalePrice&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">jointplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
@@ -706,11 +707,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>各离散特征与房价的关系:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train</span><span class="p">[</span><span class="n">categorical_feats</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">categorical_feats</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;Missing&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
@@ -729,11 +730,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>缺失值的情况:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">total</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">Type</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span>
@@ -744,7 +745,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[9]:
 </pre></div>
 </div>
@@ -995,17 +996,17 @@ div.nboutput div.output_area.stderr {
 <li>泳池</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolArea&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">,</span><span class="s1">&#39;PoolArea&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[10]:
 </pre></div>
 </div>
@@ -1053,11 +1054,11 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolArea&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Gd&#39;</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span><span class="s1">&#39;PoolQC&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;None&#39;</span>
 </pre></div>
@@ -1067,18 +1068,18 @@ div.nboutput div.output_area.stderr {
 <li>车库</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span>\
              <span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">,</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">,</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">,</span><span class="s1">&#39;GarageCars&#39;</span><span class="p">,</span><span class="s1">&#39;GarageArea&#39;</span><span class="p">,</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">,</span><span class="s1">&#39;GarageCond&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[12]:
 </pre></div>
 </div>
@@ -1136,11 +1137,11 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;GarageYrBlt&#39;</span><span class="p">]</span> <span class="o">=</span> \
 <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageFinish&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;GarageType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;GarageQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TA&#39;</span>
@@ -1160,11 +1161,11 @@ div.nboutput div.output_area.stderr {
 <li>地下室</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()),</span>\
               <span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
                                             <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
@@ -1172,7 +1173,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[14]:
 </pre></div>
 </div>
@@ -1224,21 +1225,21 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span>\
               <span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
                                             <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
@@ -1246,7 +1247,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[16]:
 </pre></div>
 </div>
@@ -1322,21 +1323,21 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;TA&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span>\
               <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
                                             <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
@@ -1344,7 +1345,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[18]:
 </pre></div>
 </div>
@@ -1424,21 +1425,21 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;No&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span>\
               <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
                                             <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
@@ -1446,7 +1447,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[20]:
 </pre></div>
 </div>
@@ -1513,21 +1514,21 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TA&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span>\
               <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
                                             <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
@@ -1535,7 +1536,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[22]:
 </pre></div>
 </div>
@@ -1589,11 +1590,11 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -1601,11 +1602,11 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span>\
               <span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span>\
                                             <span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtUnfSF&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">]]</span>
@@ -1613,7 +1614,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[24]:
 </pre></div>
 </div>
@@ -1667,21 +1668,21 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Rec&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;BsmtExposure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -1694,17 +1695,17 @@ div.nboutput div.output_area.stderr {
 <li>其他数据</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">,</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[27]:
 </pre></div>
 </div>
@@ -1742,21 +1743,21 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MasVnrArea&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()),</span><span class="s1">&#39;MasVnrType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;BrkFace&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">MSZoning</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;MSZoning&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">freq_port</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">freq_port</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">SaleType</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -1791,11 +1792,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>最后检查一下缺失情况</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">total</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">Type</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span>
@@ -1806,7 +1807,7 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[30]:
 </pre></div>
 </div>
@@ -1844,11 +1845,11 @@ div.nboutput div.output_area.stderr {
 <h3>特征工程<a class="headerlink" href="#特征工程" title="Permalink to this headline">¶</a></h3>
 <p>一些离散变量,其含义是带有序列关系的,对于这类特征可以按需赋予连续值,这样也对后期的回归模型有利。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">qual_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Po&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Fa&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;TA&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Gd&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Ex&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterQual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterQual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterCond&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;ExterCond&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">qual_dict</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -1879,11 +1880,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>针对地下室的情况,部分样本含有多种评价情况。因此考虑将其整合为一个变量，并为每种情况打分,最后合并为一个总分值。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">df1</span><span class="o">=</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType1&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF1&#39;</span><span class="p">]]</span>
 <span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF&#39;</span><span class="p">]</span>
 <span class="n">df2</span><span class="o">=</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinType2&#39;</span><span class="p">,</span><span class="s1">&#39;BsmtFinSF2&#39;</span><span class="p">]]</span>
@@ -1919,11 +1920,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>合并Condition</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Condition1&#39;</span><span class="p">,</span><span class="s1">&#39;Condition2&#39;</span><span class="p">]])</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_Artery&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_Artery&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_Artery&#39;</span><span class="p">]</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition_Feedr&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition1_Feedr&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Condition2_Feedr&#39;</span><span class="p">]</span>
@@ -1947,11 +1948,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>合并Exterior</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">all_data</span><span class="p">[[</span><span class="s1">&#39;Exterior1st&#39;</span><span class="p">,</span><span class="s1">&#39;Exterior2nd&#39;</span><span class="p">]])</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_AsbShng&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_AsbShng&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_AsbShng&#39;</span><span class="p">]</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior_AsphShn&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior1st_AsphShn&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Exterior2nd_AsphShn&#39;</span><span class="p">]</span>
@@ -1984,11 +1985,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>对年份相关的数据,统一转换成距离销售年的年数</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YrSold&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;YearBuilt&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
 <span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearRemodAdd&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YrSold&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;YearRemodAdd&#39;</span><span class="p">]</span>
@@ -2001,11 +2002,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>将销售年月等转换成类别</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">MoSold</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">MoSold</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">YrSold</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">YrSold</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">MSSubClass</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">MSSubClass</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
@@ -2017,17 +2018,17 @@ div.nboutput div.output_area.stderr {
 <h3>其他前处理<a class="headerlink" href="#其他前处理" title="Permalink to this headline">¶</a></h3>
 <p>删除异常值</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;OverallQual&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">10</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">200000</span><span class="p">),[</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">,</span><span class="s1">&#39;OverallQual&#39;</span><span class="p">,</span><span class="s1">&#39;GrLivArea&#39;</span><span class="p">,</span><span class="s1">&#39;TotalBsmtSF&#39;</span><span class="p">,</span><span class="s1">&#39;1stFlrSF&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[37]:
 </pre></div>
 </div>
@@ -2079,11 +2080,11 @@ div.nboutput div.output_area.stderr {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="mi">523</span><span class="p">,</span> <span class="mi">1298</span><span class="p">],</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Id&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -2091,11 +2092,11 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>对右偏连续特征做对数处理</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">numeric_feats</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">!=</span><span class="s2">&quot;object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
 
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
@@ -2114,22 +2115,22 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>对离散变量二值化处理</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [40]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>划分训练集和测试集,并对所有数据进行[0,1]标准化</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [41]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">]))</span>
 <span class="n">y_train</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;SalePrice&#39;</span>
 <span class="n">all_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -2148,22 +2149,22 @@ div.nboutput div.output_area.stderr {
 <div class="section" id="4.-baseline建模及评估">
 <h2>4. baseline建模及评估<a class="headerlink" href="#4.-baseline建模及评估" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">mean_rmse</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">mean_time</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [43]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">learning_curve</span>
 <span class="k">def</span> <span class="nf">plot_learning_curve</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)):</span>
@@ -2200,11 +2201,11 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">KFold</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -2236,11 +2237,11 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [45]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">Ridge</span><span class="p">,</span><span class="n">Lasso</span><span class="p">,</span><span class="n">LinearRegression</span>
 <span class="n">ridge_model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">()</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ridge_model</span><span class="p">)</span>
@@ -2264,11 +2265,11 @@ mean model process time:  0.0106 s
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">lasso_model</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">lasso_model</span><span class="p">)</span>
 </pre></div>
@@ -2291,32 +2292,32 @@ mean model process time:  0.0234 s
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [47]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[47]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>233
 </pre></div>
 </div>
 </div>
 <p>使用Ridge和Lasso都有过拟合的现象,Lasso因为带有特征选择,所以比Ridge稍好一些。考虑到一共有233个特征,对特征做一定的筛选。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">d</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;coef&#39;</span><span class="p">:</span><span class="nb">abs</span><span class="p">(</span><span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">),</span>\
     <span class="s1">&#39;feature&#39;</span><span class="p">:</span><span class="n">x_train</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
 <span class="p">}</span>
@@ -2328,11 +2329,11 @@ mean model process time:  0.0234 s
 <div class="section" id="Lasso">
 <h3>Lasso<a class="headerlink" href="#Lasso" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [49]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">lasso_model</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;lasso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">lasso_model</span><span class="p">)</span>
 </pre></div>
@@ -2358,11 +2359,11 @@ mean model process time:  0.003 s
 <div class="section" id="Ridge">
 <h3>Ridge<a class="headerlink" href="#Ridge" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ridge_model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;ridge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ridge_model</span><span class="p">)</span>
 </pre></div>
@@ -2388,11 +2389,11 @@ mean model process time:  0.0022 s
 <div class="section" id="SVM">
 <h3>SVM<a class="headerlink" href="#SVM" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [51]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVR</span>
 <span class="n">svm_model</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;svm&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;svm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">svm_model</span><span class="p">)</span>
@@ -2419,11 +2420,11 @@ mean model process time:  0.0584 s
 <div class="section" id="LinearSVM">
 <h3>LinearSVM<a class="headerlink" href="#LinearSVM" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">LinearSVR</span>
 <span class="n">linearsvm_model</span> <span class="o">=</span> <span class="n">LinearSVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;linearsvm&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;linearsvm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">linearsvm_model</span><span class="p">)</span>
@@ -2450,11 +2451,11 @@ mean model process time:  0.043 s
 <div class="section" id="lightGBM">
 <h3>lightGBM<a class="headerlink" href="#lightGBM" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [53]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
 <span class="n">lgb_model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMRegressor</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">num_leaves</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>\
  <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
@@ -2467,11 +2468,11 @@ mean model process time:  0.043 s
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [55]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
 <span class="n">lgb_model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMRegressor</span><span class="p">(</span><span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">num_leaves</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>\
  <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
@@ -2500,11 +2501,11 @@ mean model process time:  0.3914 s
 <div class="section" id="Random-Forest">
 <h3>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [56]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
 <span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">()</span>
 <span class="n">d</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span><span class="n">rf_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span>\
@@ -2516,11 +2517,11 @@ mean model process time:  0.3914 s
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [57]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
 <span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">mean_rmse</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">],</span><span class="n">mean_time</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kfold_plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_rf</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">rf_model</span><span class="p">)</span>
@@ -2548,11 +2549,11 @@ mean model process time:  0.039 s
 <div class="section" id="模型效果对比">
 <h3>模型效果对比<a class="headerlink" href="#模型效果对比" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">df_eval</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_rmse</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
                   <span class="s2">&quot;rmse&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_rmse</span><span class="o">.</span><span class="n">values</span><span class="p">())}</span>
 <span class="n">df_eval</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_eval</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span><span class="s2">&quot;rmse&quot;</span><span class="p">])</span>
@@ -2561,7 +2562,7 @@ mean model process time:  0.039 s
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[58]:
 </pre></div>
 </div>
@@ -2629,11 +2630,11 @@ mean model process time:  0.039 s
 <div class="section" id="5.-模型融合及评估">
 <h2>5. 模型融合及评估<a class="headerlink" href="#5.-模型融合及评估" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [59]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">mlxtend.regressor</span> <span class="k">import</span> <span class="n">StackingRegressor</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
 
@@ -2664,11 +2665,11 @@ mean model process time:  0.121 s
 <div class="section" id="6.-预测及提交">
 <h2>6. 预测及提交<a class="headerlink" href="#6.-预测及提交" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [60]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">srgs_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">],</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">srgs_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">[</span><span class="n">fs_l1</span><span class="p">])</span>
 <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -2734,6 +2735,7 @@ mean model process time:  0.121 s
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.0.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

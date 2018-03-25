@@ -94,10 +94,10 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">机器学习</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_model.html">线性回归与逻辑回归</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decision_trees.html">决策树</a></li>
 <li class="toctree-l2"><a class="reference internal" href="knn.html">k近邻(KNN)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">朴素贝叶斯</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svm.html">支持向量机(SVM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_learning.html">集成学习</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">模型评估</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classification">Classification</a></li>
@@ -216,7 +216,7 @@
 <ul class="simple">
 <li>Accuracy</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[accuary(y,\widehat{y})=\frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}(\widehat{y}_i=y_i)\]</div>
 <ul class="simple">
 <li>Confusion matrix</li>
@@ -226,18 +226,18 @@
 <li>Precision</li>
 </ul>
 <p>Precision 表示预测为正样本的样本中，有多少是真的正样本。</p>
-<div class="math">
+<div class="math notranslate">
 \[precision=\frac{TP}{TP+FP}\]</div>
 <ul class="simple">
 <li>Recall</li>
 </ul>
 <p>Recall 表示所有正样本中，有多少被找出来了。</p>
-<div class="math">
+<div class="math notranslate">
 \[recall=\frac{TP}{TP+FN}\]</div>
 <ul class="simple">
 <li>F-measure</li>
 </ul>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 F_\beta &amp;= \frac{(1+\beta^2) \cdot precision \cdot recall}{\beta^2 \cdot precision+recall}\\
 &amp;= \frac{2 \cdot precision \cdot recall}{precision+recall}\ (if\ \beta = 1)
@@ -248,12 +248,12 @@ F_\beta &amp;= \frac{(1+\beta^2) \cdot precision \cdot recall}{\beta^2 \cdot pre
 <p>ROC : Receiver Operating Characteristic curve</p>
 <p>AUC : area under the curve</p>
 <a class="reference internal image-reference" href="../_images/eval_roc.png"><img alt="../_images/eval_roc.png" class="align-center" src="../_images/eval_roc.png" style="width: 400px;" /></a>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 FPR(x) &amp;= \frac{FP}{FP+TN}\\
 TPR(y) &amp;= \frac{TP}{TP+FN}
 \end{align}\end{split}\]</div>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{cases}
 (x,y)=(1,1) &amp; \mbox{if all predicted = 1}\\
 (x,y)=(0,0) &amp; \mbox{if all predicted = 0}\\
@@ -271,7 +271,7 @@ TPR(y) &amp;= \frac{TP}{TP+FN}
 <div class="section" id="regression">
 <h2>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h2>
 <p>最常用的就是误差平方和(<strong>MSE</strong>:mean square error):</p>
-<div class="math">
+<div class="math notranslate">
 \[MSE(y,\widehat{y})=\frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}(\widehat{y}_i-y_i)^2\]</div>
 <p>最小二乘法就是最小化该误差的一种方法，即令每个参数的偏导数为0，求解参数。</p>
 </div>
@@ -322,6 +322,7 @@ TPR(y) &amp;= \frac{TP}{TP+FN}
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.0.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

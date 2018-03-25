@@ -238,32 +238,32 @@
 <p>提升方法最常见的使用场景时在决策树上。</p>
 <div class="section" id="adaboost">
 <h3>Adaboost<a class="headerlink" href="#adaboost" title="Permalink to this headline">¶</a></h3>
-<p>设训练数据集 <span class="math">\(T={(x_1,y_1),(x_1,y_1),\cdots ,(x_N,y_N)}\)</span>, <span class="math">\(y_i\in \{-1,1\}\)</span></p>
+<p>设训练数据集 <span class="math notranslate">\(T={(x_1,y_1),(x_1,y_1),\cdots ,(x_N,y_N)}\)</span>, <span class="math notranslate">\(y_i\in \{-1,1\}\)</span></p>
 <ul class="simple">
 <li>分类</li>
 </ul>
 <ol class="arabic simple">
 <li>初始化训练数据的权值分布</li>
 </ol>
-<div class="math">
+<div class="math notranslate">
 \[D_1=(w_{11},\cdots ,w_{1i},\cdots ,w_{1N}),\ w_{1i}=\frac{1}{N},\ i=1,2,\cdots,N\]</div>
 <ol class="arabic simple" start="2">
-<li>使用具有权值分布 <span class="math">\(D_m\)</span> 的训练数据集学习,得到基分类器 <span class="math">\(G_m(x)\)</span></li>
-<li>计算 <span class="math">\(G_m(x)\)</span> 在训练集上的分类误差率</li>
+<li>使用具有权值分布 <span class="math notranslate">\(D_m\)</span> 的训练数据集学习,得到基分类器 <span class="math notranslate">\(G_m(x)\)</span></li>
+<li>计算 <span class="math notranslate">\(G_m(x)\)</span> 在训练集上的分类误差率</li>
 </ol>
-<div class="math">
+<div class="math notranslate">
 \[e_m=P(G_m(x_i\ne y_i)) = \sum_{i=1}^Nw_{mi}I(G_m(x_i)\ne y_i)\]</div>
 <ol class="arabic simple" start="4">
-<li>计算 <span class="math">\(G_m(x)\)</span> 的系数</li>
+<li>计算 <span class="math notranslate">\(G_m(x)\)</span> 的系数</li>
 </ol>
-<div class="math">
+<div class="math notranslate">
 \[\alpha_m=\frac{1}{2}\log \frac{1-e_m}{e_m}\]</div>
 <ol class="arabic simple" start="5">
 <li>更新训练集的权值分布</li>
 </ol>
-<div class="math">
+<div class="math notranslate">
 \[D_{m+1}=(w_{m+1,1},\cdots ,w_{m+1,i},\cdots ,w_{m+1,N})\]</div>
-<div class="math">
+<div class="math notranslate">
 \[\begin{split}\begin{align}
 w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 &amp;=
@@ -272,16 +272,16 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 \frac{w_{mi}}{Z_m}e^{\alpha_m} &amp; G_m(x_i)\ne y_i
 \end{cases}\\
 \end{align}\end{split}\]</div>
-<p>其中 <span class="math">\(Z_m\)</span> 是规范化因子</p>
-<div class="math">
+<p>其中 <span class="math notranslate">\(Z_m\)</span> 是规范化因子</p>
+<div class="math notranslate">
 \[Z_m = \sum_{i=1}^Nw_{mi}\exp (-\alpha_my_iG_m(x_i))\]</div>
 <ol class="arabic simple" start="6">
 <li>构建基本分类器的线性组合</li>
 </ol>
-<div class="math">
+<div class="math notranslate">
 \[f(x)=\sum_{m=1}^M\alpha_mG_m(x)\]</div>
 <p>得到最终分类器</p>
-<div class="math">
+<div class="math notranslate">
 \[G(x)=sign(f(x))=sign\left(\sum_{m=1}^M\alpha_mG_m(x)\right)\]</div>
 <ul class="simple">
 <li>回归</li>
@@ -293,17 +293,17 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 <div class="section" id="gbdt">
 <h3>GBDT<a class="headerlink" href="#gbdt" title="Permalink to this headline">¶</a></h3>
 <p>GBDT,即梯度提升树,则是利用当前模型损失函数的负梯度值,作为残差的近似值去拟合:</p>
-<div class="math">
+<div class="math notranslate">
 \[F_m(x) = F_{m-1}(x)+\gamma_mh_m(x)\]</div>
-<div class="math">
+<div class="math notranslate">
 \[\gamma_m = \arg \min_{\gamma}\sum_{i=1}^nL\left(y_i,F_{m-1}(x_i)-\gamma\frac{\partial L(y_i,F_{m-1}(x_i))}{\partial F_{m-1}(x_i)} \right)\]</div>
 <p>加上学习率:</p>
-<div class="math">
+<div class="math notranslate">
 \[F_m(x) = F_{m-1}(x)+\nu \gamma_mh_m(x),\ 0&lt;\nu \leq 1\]</div>
 <p>常用的损失函数如下表:</p>
 <a class="reference internal image-reference" href="../_images/ensemble_gradient.png"><img alt="../_images/ensemble_gradient.png" class="align-center" src="../_images/ensemble_gradient.png" style="width: 500px;" /></a>
 <p>由上表可以看出,在回归问题上采用误差平方和作为损失函数,其负梯度值即为残差,而在分类问题上一般会映射成概率,其常用的损失函数为:</p>
-<div class="math">
+<div class="math notranslate">
 \[L(y_i,f(x_i)) = \log (1+e^{-y_if(x_i)})\]</div>
 <p>在正则化上,除了学习率外,GBDT还可以在每次提升时采用随机无放回的样本采样(行采样)方式,即用随即梯度下降的方式来提高泛化能力。</p>
 </div>
@@ -313,7 +313,7 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 <a class="reference internal image-reference" href="../_images/ensemble_xgb_loss.png"><img alt="../_images/ensemble_xgb_loss.png" class="align-center" src="../_images/ensemble_xgb_loss.png" style="width: 500px;" /></a>
 <p>对于误差损失的部分,XGBoost对损失函数进行了一个泰勒二阶展开:</p>
 <a class="reference internal image-reference" href="../_images/ensemble_xgb_1.png"><img alt="../_images/ensemble_xgb_1.png" class="align-center" src="../_images/ensemble_xgb_1.png" style="width: 500px;" /></a>
-<p>注:其中 <span class="math">\(\widehat{y}_i^{(t)},\ y_i\)</span> 都是常数，一些常数项都被加到了 <span class="math">\(const\)</span> 里:</p>
+<p>注:其中 <span class="math notranslate">\(\widehat{y}_i^{(t)},\ y_i\)</span> 都是常数，一些常数项都被加到了 <span class="math notranslate">\(const\)</span> 里:</p>
 <a class="reference internal image-reference" href="../_images/ensemble_xgb_2.png"><img alt="../_images/ensemble_xgb_2.png" class="align-center" src="../_images/ensemble_xgb_2.png" style="width: 500px;" /></a>
 <p>此时,目标函数就可转化成:</p>
 <a class="reference internal image-reference" href="../_images/ensemble_xgb_3.png"><img alt="../_images/ensemble_xgb_3.png" class="align-center" src="../_images/ensemble_xgb_3.png" style="width: 500px;" /></a>
@@ -353,10 +353,10 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
 <h2>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">¶</a></h2>
 <p>多基分类器的结合策略,在分类问题上常用简单投票法,回归问题常用平均法,也可以根据使用场景进行加权。还有一种常用的学习法叫 <strong>Stacking</strong> ,它是以每个基分类器的预测值作为样本,进行再次学习(如用逻辑回归..)。Stacking在使用时往往配合交叉验证。</p>
 <a class="reference internal image-reference" href="../_images/ensemble_stack.png"><img alt="../_images/ensemble_stack.png" class="align-center" src="../_images/ensemble_stack.png" style="width: 500px;" /></a>
-<p>假设用 <span class="math">\(m\)</span> 个分类器 <span class="math">\(C_m\)</span> 对数据集(n个样本)进行  <span class="math">\(k\)</span>  折交叉堆叠:</p>
+<p>假设用 <span class="math notranslate">\(m\)</span> 个分类器 <span class="math notranslate">\(C_m\)</span> 对数据集(n个样本)进行  <span class="math notranslate">\(k\)</span>  折交叉堆叠:</p>
 <ol class="arabic simple">
-<li>每次的交叉验证都是用 <span class="math">\(C_m\)</span> 对当前训练集拟合,对验证集的预测值作为输出,可以得到 <span class="math">\(m\)</span> 列, <span class="math">\(\frac{n}{k}\)</span> 行的结果集;</li>
-<li>如此进行 <span class="math">\(k\)</span> 轮训练,将结果纵向堆叠,即可得到一个 <span class="math">\(m\)</span> 列, <span class="math">\(n\)</span> 行的结果集;</li>
+<li>每次的交叉验证都是用 <span class="math notranslate">\(C_m\)</span> 对当前训练集拟合,对验证集的预测值作为输出,可以得到 <span class="math notranslate">\(m\)</span> 列, <span class="math notranslate">\(\frac{n}{k}\)</span> 行的结果集;</li>
+<li>如此进行 <span class="math notranslate">\(k\)</span> 轮训练,将结果纵向堆叠,即可得到一个 <span class="math notranslate">\(m\)</span> 列, <span class="math notranslate">\(n\)</span> 行的结果集;</li>
 <li>将该结果集作为样本,用一个Meta-Classifer预测,得到最终结果。</li>
 </ol>
 <p>使用Stacking最理想的方式是使用m个相互独立,各有所长,且准确度差异不大的基分类器:使用类似的模型进行堆叠,没有太大效果;而分类器差异大,效果往往还不如最好的那个基分类器。</p>
@@ -408,6 +408,7 @@ w_{m+1,i} &amp;= \frac{w_{mi}}{Z_m}\exp (-\alpha_my_iG_m(x_i)) \\
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.0.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
